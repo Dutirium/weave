@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: weave
+    environment:
+      POSTGRES_USER: kaden
+      POSTGRES_PASSWORD: kanyal
+      POSTGRES_DB: app_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

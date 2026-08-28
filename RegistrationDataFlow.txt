@@ -1,0 +1,53 @@
+                    FRONTEND
+┌─────────────────────────────────────────────┐
+│                                             │
+│  Register.tsx                               │
+│      │                                      │
+│      │ user types                           │
+│      ▼                                      │
+│  React state: formData                      │
+│      │                                      │
+│      │ submit                               │
+│      ▼                                      │
+│  handleSubmit()                             │
+│      │                                      │
+│      │ fetch(POST /api/auth/register)       │
+└──────┼──────────────────────────────────────┘
+       │
+       │ HTTP + JSON
+       ▼
+                    BACKEND
+┌─────────────────────────────────────────────┐
+│                                             │
+│  Express                                    │
+│      │                                      │
+│      ▼                                      │
+│  /api/auth/register                         │
+│      │                                      │
+│      ▼                                      │
+│  auth.ts                                    │
+│      │                                      │
+│      │ prisma.user.findFirst()              │
+│      │ prisma.user.create()                 │
+│      ▼                                      │
+│  db.ts                                      │
+│      │                                      │
+│      ▼                                      │
+│  Prisma Client                              │
+└──────┼──────────────────────────────────────┘
+       │
+       │ SQL
+       ▼
+                 DATABASE
+┌─────────────────────────────────────────────┐
+│                                             │
+│  PostgreSQL                                 │
+│      │                                      │
+│      ▼                                      │
+│  "User" table                               │
+│                                             │
+└─────────────────────────────────────────────┘
+       │
+       │ stored on
+       ▼
+   Docker volume
