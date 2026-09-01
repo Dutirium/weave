@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 interface FormData {
   username: string;
   email: string;
@@ -143,6 +143,11 @@ export const Register: React.FC = () => {
         >
           {loading ? 'Registering...' : 'Register'}
         </button>
+       
+       {/*Link to Login page */}
+        <Link to="/login" className="login-button">
+          Already have an account? Login
+        </Link>
       </form>
     </div>
   );

@@ -13,4 +13,16 @@ model User {
   email        String   @unique
   passwordHash String
   createdAt    DateTime @default(now())
+
+  sessions     Session[]
+}
+
+model Session {
+  session_id String @id 
+  user_id String
+  expires_at DateTime
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade )
+
+  @@index([user_id])
 }
