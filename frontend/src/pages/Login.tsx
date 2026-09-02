@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../context/AuthContext";
 
 interface LoginFormData {
     uniqueId: string,
@@ -20,6 +22,8 @@ interface ApiResponse {
 
 
 export const Login: React.FC = () => {
+    const { refreshUser } = useAuth();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState<LoginFormData>({
         uniqueId: '',
@@ -61,8 +65,11 @@ export const Login: React.FC = () => {
             }
             setMessage(data.message ?? null);
 
-            // to redirect to a new page i.e the dashboard 
-            // Start login backend tommorow 
+            await refreshUser();
+            
+            navigate("/dashboard", {replace: true});
+            
+           
         }
         catch (e: unknown) {
             if (e instanceof Error) {
