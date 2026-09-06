@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import authRouter from './routes/auth/auth.js';
 import { prisma } from './db.js';
 import cookieParser from "cookie-parser";
+import weaveRouter from "./routes/auth/weaves.js"
 
 dotenv.config();
 
@@ -19,8 +20,18 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(cookieParser());
-//Routes
+
+
+app.use((req, res, next) => {
+    console.log("REQUEST:", req.method, req.url);
+    next();
+});
+
+//Routes from authRouter
 app.use('/api/auth', authRouter);
+
+//Route from weave Router
+app.use("/api/weaves", weaveRouter);
 
 //endpoints 
 app.get('/api/health', (req: Request, res: Response) => {

@@ -7,6 +7,17 @@ datasource db {
   provider = "postgresql"
 }
 
+
+enum ArgumentRelation{
+
+  REPLY
+  SUPPORT 
+  CHALLENGE
+  COUNTER
+  QUESTION
+
+}
+
 model User {
   id           String   @id @default(uuid())
   username     String   @unique
@@ -14,6 +25,8 @@ model User {
   passwordHash String
   createdAt    DateTime @default(now())
 
+  weave        Weave[]
+  messages     Messages[]
   sessions     Session[]
 }
 
@@ -25,4 +38,45 @@ model Session {
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade )
 
   @@index([user_id])
+}
+
+model Weave {
+  id String @id @default(uuid())
+  creator String
+  title String
+  createdAt DateTime @default(now())
+
+  //The user here could be used as a property to get al the user data in one go example Weave.user 
+  user User @relation(fields: [creator], references: [id], onDelete: Cascade )
+  
+  messages Messages[]
+
+  @@index([id])
+}
+
+model Messages{
+  id String @id @default(uuid())
+  content String
+  weave_id String 
+  user_id String
+  clientMessage_id String?
+  target_message_id String?
+  relation ArgumentRelation?
+  sequence  Int
+  createdAt DateTime @default(now())
+
+  weave Weave @relation(fields: [weave_id], references: [id], onDelete: Cascade )
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  targetMessage Messages? @relation("MessageReplies", fields: [target_message_id], references: [id])
+
+  replies Messages[] @relation("MessageReplies")
+
+  @@unique([weave_id, clientMessage_id], map: "weave_id_clientMessage_id")
+  @@unique([weave_id, sequence])
+  @@index([weave_id,sequence])
+  @@index([target_message_id])
+
+
+  @@index([weave_id])
 }

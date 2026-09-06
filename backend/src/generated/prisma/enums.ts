@@ -9,7 +9,12 @@
 * 🟢 You can import this file directly.
 */
 
+export const ArgumentRelation = {
+  REPLY: 'REPLY',
+  SUPPORT: 'SUPPORT',
+  CHALLENGE: 'CHALLENGE',
+  COUNTER: 'COUNTER',
+  QUESTION: 'QUESTION'
+} as const
 
-
-// This file is empty because there are no enums in the schema.
-export {}
+export type ArgumentRelation = (typeof ArgumentRelation)[keyof typeof ArgumentRelation]

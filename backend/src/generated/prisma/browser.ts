@@ -27,3 +27,13 @@ export type User = Prisma.UserModel
  * 
  */
 export type Session = Prisma.SessionModel
+/**
+ * Model Weave
+ * 
+ */
+export type Weave = Prisma.WeaveModel
+/**
+ * Model Messages
+ * 
+ */
+export type Messages = Prisma.MessagesModel

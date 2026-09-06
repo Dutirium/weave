@@ -205,13 +205,13 @@ export type SessionScalarWhereWithAggregatesInput = {
 }
 
 export type SessionCreateInput = {
-  session_id?: string
+  session_id: string
   expires_at: Date | string
   user: Prisma.UserCreateNestedOneWithoutSessionsInput
 }
 
 export type SessionUncheckedCreateInput = {
-  session_id?: string
+  session_id: string
   user_id: string
   expires_at: Date | string
 }
@@ -229,7 +229,7 @@ export type SessionUncheckedUpdateInput = {
 }
 
 export type SessionCreateManyInput = {
-  session_id?: string
+  session_id: string
   user_id: string
   expires_at: Date | string
 }
@@ -316,12 +316,12 @@ export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type SessionCreateWithoutUserInput = {
-  session_id?: string
+  session_id: string
   expires_at: Date | string
 }
 
 export type SessionUncheckedCreateWithoutUserInput = {
-  session_id?: string
+  session_id: string
   expires_at: Date | string
 }
 
@@ -361,7 +361,7 @@ export type SessionScalarWhereInput = {
 }
 
 export type SessionCreateManyUserInput = {
-  session_id?: string
+  session_id: string
   expires_at: Date | string
 }
 

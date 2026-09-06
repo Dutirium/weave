@@ -398,7 +398,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Session: 'Session'
+  Session: 'Session',
+  Weave: 'Weave',
+  Messages: 'Messages'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -414,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session"
+    modelProps: "user" | "session" | "weave" | "messages"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -566,6 +568,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Weave: {
+      payload: Prisma.$WeavePayload<ExtArgs>
+      fields: Prisma.WeaveFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WeaveFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeavePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WeaveFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeavePayload>
+        }
+        findFirst: {
+          args: Prisma.WeaveFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeavePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WeaveFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeavePayload>
+        }
+        findMany: {
+          args: Prisma.WeaveFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeavePayload>[]
+        }
+        create: {
+          args: Prisma.WeaveCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeavePayload>
+        }
+        createMany: {
+          args: Prisma.WeaveCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WeaveCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeavePayload>[]
+        }
+        delete: {
+          args: Prisma.WeaveDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeavePayload>
+        }
+        update: {
+          args: Prisma.WeaveUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeavePayload>
+        }
+        deleteMany: {
+          args: Prisma.WeaveDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WeaveUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WeaveUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeavePayload>[]
+        }
+        upsert: {
+          args: Prisma.WeaveUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WeavePayload>
+        }
+        aggregate: {
+          args: Prisma.WeaveAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWeave>
+        }
+        groupBy: {
+          args: Prisma.WeaveGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WeaveGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WeaveCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WeaveCountAggregateOutputType> | number
+        }
+      }
+    }
+    Messages: {
+      payload: Prisma.$MessagesPayload<ExtArgs>
+      fields: Prisma.MessagesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MessagesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MessagesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagesPayload>
+        }
+        findFirst: {
+          args: Prisma.MessagesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MessagesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagesPayload>
+        }
+        findMany: {
+          args: Prisma.MessagesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagesPayload>[]
+        }
+        create: {
+          args: Prisma.MessagesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagesPayload>
+        }
+        createMany: {
+          args: Prisma.MessagesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MessagesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagesPayload>[]
+        }
+        delete: {
+          args: Prisma.MessagesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagesPayload>
+        }
+        update: {
+          args: Prisma.MessagesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagesPayload>
+        }
+        deleteMany: {
+          args: Prisma.MessagesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MessagesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MessagesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagesPayload>[]
+        }
+        upsert: {
+          args: Prisma.MessagesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MessagesPayload>
+        }
+        aggregate: {
+          args: Prisma.MessagesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMessages>
+        }
+        groupBy: {
+          args: Prisma.MessagesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MessagesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MessagesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MessagesCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -625,6 +775,31 @@ export const SessionScalarFieldEnum = {
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
+export const WeaveScalarFieldEnum = {
+  id: 'id',
+  creator: 'creator',
+  title: 'title',
+  createdAt: 'createdAt'
+} as const
+
+export type WeaveScalarFieldEnum = (typeof WeaveScalarFieldEnum)[keyof typeof WeaveScalarFieldEnum]
+
+
+export const MessagesScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  weave_id: 'weave_id',
+  user_id: 'user_id',
+  clientMessage_id: 'clientMessage_id',
+  target_message_id: 'target_message_id',
+  relation: 'relation',
+  sequence: 'sequence',
+  createdAt: 'createdAt'
+} as const
+
+export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -639,6 +814,14 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 
@@ -676,6 +859,20 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'ArgumentRelation'
+ */
+export type EnumArgumentRelationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ArgumentRelation'>
+    
+
+
+/**
+ * Reference to a field of type 'ArgumentRelation[]'
+ */
+export type ListEnumArgumentRelationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ArgumentRelation[]'>
+    
+
+
+/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -686,6 +883,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -841,6 +1052,8 @@ export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaC
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   session?: Prisma.SessionOmit
+  weave?: Prisma.WeaveOmit
+  messages?: Prisma.MessagesOmit
 }
 
 /* Types for Logging */

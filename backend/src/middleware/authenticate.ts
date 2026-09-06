@@ -36,7 +36,7 @@ export async function authenticate(
         }
 
         //if the session id exist but has already expired
-        if(sessionId.expire_at <= new Date()){
+        if(session.expires_at <= new Date()){
             await prisma.session.delete({
                 where:{
                     session_id: sessionId,

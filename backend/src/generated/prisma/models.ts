@@ -10,4 +10,6 @@
  */
 export type * from './models/User.js'
 export type * from './models/Session.js'
+export type * from './models/Weave.js'
+export type * from './models/Messages.js'
 export type * from './commonInputTypes.js'

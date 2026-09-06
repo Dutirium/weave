@@ -18,9 +18,9 @@ export interface LoginRequestBody{
 }
 
 export type AuthenticatedUser = {
-    id?: string,
-    username?: string,
-    email?: string,
+    id: string,
+    username: string,
+    email: string,
 };
 
 declare global {

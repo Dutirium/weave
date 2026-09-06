@@ -4,13 +4,15 @@ import { Login } from './pages/Login';
 import  Dashboard  from './pages/Dashboard';
 import ProtectedRoute from './middleware/ProtectedRoute';
 import { CheckCredentials }  from "./middleware/CheckCredentials";
+import Weave from './pages/Weave';
 
 function App(){
 
   return (
     <main>
-    <Routes>     {/* Public Routes */}
-      
+    <Routes>
+    
+      {/* Public Routes */}
       <Route path="/register" element={
         <CheckCredentials>
           <Register />
@@ -27,6 +29,7 @@ function App(){
       {/* Protected Routes */ }
       <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/weaves/:id" element={<Weave />} />
       </Route>
 
       {/* Any other routes */}
