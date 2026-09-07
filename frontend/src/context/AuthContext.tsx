@@ -32,7 +32,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const refreshUser = async () => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/auth/me`,
+                `/api/auth/me`,
                 {
                     method: "GET",
                     credentials: "include",
@@ -66,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const logout = async () => {
         try {
             await fetch(
-                `${import.meta.env.VITE_API_URL}/api/auth/logout`,
+                `/api/auth/logout`,
                 {
                     method: "DELETE",
                     credentials: "include",
