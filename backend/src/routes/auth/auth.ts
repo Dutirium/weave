@@ -159,7 +159,7 @@ router.post('/login', async (req: Request<{}, {}, LoginRequestBody>, res: Respon
             res.cookie("sessionId", sessionId, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
-                sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+                sameSite: "lax",
                 expires: expiresAt,
             });
 
