@@ -32,7 +32,7 @@ const Dashboard = ()=>{
         const fetchWeaves = async () =>{
             try{
             
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/weaves`,
+                const response = await fetch(`/api/weaves`,
                     {
                         credentials: "include",
                     }
@@ -71,7 +71,7 @@ const createWeave = async ()=>{
         throw new Error("User not found");
     }
 
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/weaves`,
+    const response = await fetch(`/api/weaves`,
         {
             headers:{
                 "Content-Type": "application/json",
@@ -118,7 +118,7 @@ const deleteWeave = async (id: string)=>{
         throw new Error("Weave Id not found");
       } 
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/weaves/${id}`,
+      const response = await fetch(`/api/weaves/${id}`,
         {
             method: "DELETE",
             credentials: "include",

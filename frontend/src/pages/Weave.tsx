@@ -49,13 +49,13 @@ const Weave = ()=>{
 
                 const [weaveResponse, messageResponse] = await Promise.all([
 
-                    fetch(`${import.meta.env.VITE_API_URL}/api/weaves/${id}`,
+                    fetch(`/api/weaves/${id}`,
                         {
                             credentials: "include",
                         }
                     ),
 
-                    fetch(`${import.meta.env.VITE_API_URL}/api/weaves/${id}/messages`,
+                    fetch(`/api/weaves/${id}/messages`,
                         {
                             credentials: "include",
                         }
@@ -120,7 +120,7 @@ const Weave = ()=>{
             const clientMessageId = crypto.randomUUID();
             
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/weaves/${id}/messages`,
+                `/api/weaves/${id}/messages`,
                 {
                     method: "POST",
                     credentials: "include",
