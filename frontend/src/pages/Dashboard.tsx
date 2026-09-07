@@ -498,15 +498,15 @@ return (
 
                                             <div
                                                 key={weave.id}
-                                                className="group flex items-center gap-3 sm:gap-5 py-4 sm:py-6 border-b border-white/[0.06] hover:px-2 sm:hover:px-3 transition-all"
-                                            >
+                                                className="group flex items-center min-w-0 w-full gap-2 sm:gap-5 py-4 sm:py-6 border-b border-white/[0.06] hover:px-2 sm:hover:px-3 transition-all"
+                                                >
 
                                                 <div className="shrink-0 w-6 sm:w-8 text-[9px] sm:text-[10px] text-zinc-700">
                                                     {String(index + 1).padStart(2, "0")}
                                                 </div>
 
 
-                                                <div className="min-w-0 flex-1">
+                                                <div className="min-w-0 flex-1 overflow-hidden">
 
                                                     <h3 className="text-xs sm:text-base font-medium text-zinc-300 group-hover:text-white transition-colors truncate">
                                                         {weave.title}
