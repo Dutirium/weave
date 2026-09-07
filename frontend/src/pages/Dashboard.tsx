@@ -450,7 +450,7 @@ return (
 
                         {/* YOUR WEAVES */}
 
-                        <section>
+                        <section className="min-w-0">
 
                             <div className="flex items-end justify-between pb-4 sm:pb-5 border-b border-white/[0.08]">
 
