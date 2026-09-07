@@ -155,7 +155,7 @@ setLiveWeaves(weaves.filter(
 
 
 return (
-    <div className="min-h-screen bg-[#0b0b0c] text-zinc-100 relative">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#0b0b0c] text-zinc-100 relative">
 
         {/* ───────────── Spider Web Background ───────────── */}
         <SpiderWebBackground />
@@ -167,7 +167,7 @@ return (
         </div>
 
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-5 sm:py-7 md:py-9">
+        <div className="relative z-10 w-full max-w-6xl min-w-0 mx-auto px-4 sm:px-6 md:px-8 py-5 sm:py-7 md:py-9">
 
 
             {/* ───────────── Navigation ───────────── */}
