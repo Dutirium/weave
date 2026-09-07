@@ -363,11 +363,20 @@ router.post("/", authenticate, async (req: Request, res: Response) =>{
                 title: title.trim(),
                 creator: req.user.id,
             },  
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        username: true,
+                    },
+                },
+            },
         });
 
         res.status(201).json({
-            weave
+            weave,
         });
+        return;
 
     }catch(e){
         console.error("Error in creating a weave: " , e);
@@ -377,5 +386,60 @@ router.post("/", authenticate, async (req: Request, res: Response) =>{
         });
     }
 });
+
+
+//delete a weave
+router.delete(
+    "/:id",
+    authenticate,
+    async (req: Request<{ id: string }>, res: Response) => {
+        try {
+            if (!req.user?.id) {
+                res.status(401).json({
+                    error: "Unauthorized User",
+                });
+                return;
+            }
+
+            const weaveId = req.params.id;
+
+            const weave = await prisma.weave.findUnique({
+                where: {
+                    id: weaveId,
+                },
+            });
+
+            if (!weave) {
+                res.status(404).json({
+                    error: "Weave not found",
+                });
+                return;
+            }
+
+            if (weave.creator !== req.user.id) {
+                res.status(403).json({
+                    error: "You can only delete your own weave",
+                });
+                return;
+            }
+
+            await prisma.weave.delete({
+                where: {
+                    id: weaveId,
+                },
+            });
+
+            res.status(204).send();
+            return;
+
+        } catch (e) {
+            console.error("Error deleting weave:", e);
+
+            res.status(500).json({
+                error: "Internal Server Error",
+            });
+        }
+    }
+);
 
 export default router;

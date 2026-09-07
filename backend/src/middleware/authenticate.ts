@@ -54,6 +54,7 @@ export async function authenticate(
             id: session.user.id,
             username: session.user.username,
             email: session.user.email,
+            sessionId: session.session_id,
         };
 
         next();

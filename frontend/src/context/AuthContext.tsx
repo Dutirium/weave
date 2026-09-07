@@ -10,6 +10,7 @@ interface User {
     username: string;
     email: string;
     createdAt?: string;
+    sessionId?: string;
 }
 
 interface AuthContextType {
@@ -67,7 +68,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             await fetch(
                 `${import.meta.env.VITE_API_URL}/api/auth/logout`,
                 {
-                    method: "POST",
+                    method: "DELETE",
                     credentials: "include",
                 }
             );

@@ -21,6 +21,7 @@ export type AuthenticatedUser = {
     id: string,
     username: string,
     email: string,
+    sessionId: string,
 };
 
 declare global {

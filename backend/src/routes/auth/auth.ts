@@ -193,6 +193,37 @@ router.get("/me", authenticate, (req, res) =>{
     });
 });
 
+router.delete("/logout", authenticate, async (req, res) => {
+    try {
+        if (!req.user) {
+            res.status(401).json({
+                error: "Authentication required",
+            });
+            return;
+        }
+
+        await prisma.session.delete({
+            where: {
+                session_id: req.user.sessionId,
+            },
+        });
+
+        res.clearCookie("session_id");
+
+        res.status(200).json({
+            message: "Logged out successfully",
+        });
+        return;
+
+    } catch (e) {
+        console.error("Logout error:", e);
+
+        res.status(500).json({
+            error: "Internal Server Error",
+        });
+    }     
+});
+
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 
     return Promise.race([
