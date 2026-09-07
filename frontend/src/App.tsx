@@ -5,6 +5,7 @@ import  Dashboard  from './pages/Dashboard';
 import ProtectedRoute from './middleware/ProtectedRoute';
 import { CheckCredentials }  from "./middleware/CheckCredentials";
 import Weave from './pages/Weave';
+import Landing from './pages/Landing';
 
 function App(){
 
@@ -33,7 +34,7 @@ function App(){
       </Route>
 
       {/* Any other routes */}
-      
+      <Route path="/" element={<Landing />} />
     </Routes>
  
     </main>

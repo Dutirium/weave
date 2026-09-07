@@ -85,12 +85,12 @@ export const Login: React.FC = () => {
     }
 
 return (
-    <div className="min-h-screen bg-[#08090b] text-zinc-100 flex items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen bg-[#08090b] text-zinc-100 flex items-center justify-center p-4 sm:p-6 relative overflow-hidden">
 
         {/* Ambient background */}
         <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-[-20%] left-[10%] w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[140px]" />
-            <div className="absolute bottom-[-20%] right-[5%] w-[450px] h-[450px] bg-cyan-500/8 rounded-full blur-[140px]" />
+            <div className="absolute top-[-20%] left-[10%] w-[280px] sm:w-[500px] h-[280px] sm:h-[500px] bg-violet-600/10 rounded-full blur-[100px] sm:blur-[140px]" />
+            <div className="absolute bottom-[-20%] right-[5%] w-[250px] sm:w-[450px] h-[250px] sm:h-[450px] bg-cyan-500/8 rounded-full blur-[100px] sm:blur-[140px]" />
 
             <div
                 className="absolute inset-0 opacity-[0.025]"
@@ -103,9 +103,9 @@ return (
         </div>
 
         {/* Main layout */}
-        <div className="relative z-10 w-full max-w-5xl grid lg:grid-cols-2 gap-16 items-center">
+        <div className="relative z-10 w-full max-w-5xl grid lg:grid-cols-2 gap-8 lg:gap-16 items-center my-auto">
 
-            {/* Left side — branding */}
+            {/* Left side — branding (Desktop) */}
             <div className="hidden lg:block">
 
                 <div className="flex items-center gap-3 mb-10">
@@ -159,28 +159,29 @@ return (
             {/* Login card */}
             <div className="w-full max-w-md mx-auto">
 
-                <div className="mb-7 lg:hidden">
-                    <div className="flex items-center gap-3 mb-8">
-                        <div className="w-9 h-9 rounded-xl bg-white text-black flex items-center justify-center font-black">
+                {/* Mobile Header Branding */}
+                <div className="mb-6 lg:hidden text-center sm:text-left">
+                    <div className="flex items-center justify-center sm:justify-start gap-3 mb-4">
+                        <div className="w-8 h-8 rounded-xl bg-white text-black flex items-center justify-center font-black text-base">
                             W
                         </div>
 
-                        <span className="font-semibold tracking-[0.25em] uppercase text-zinc-400">
+                        <span className="text-xs font-semibold tracking-[0.25em] uppercase text-zinc-400">
                             Weave
                         </span>
                     </div>
 
-                    <p className="text-xs uppercase tracking-[0.25em] text-violet-400 mb-2">
+                    <p className="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-violet-400">
                         Ideas collide here
                     </p>
                 </div>
 
 
-                <div className="bg-[#101114]/90 border border-white/[0.08] rounded-2xl p-7 sm:p-9 shadow-2xl shadow-black/50 backdrop-blur-xl">
+                <div className="bg-[#101114]/90 border border-white/[0.08] rounded-2xl p-5 sm:p-9 shadow-2xl shadow-black/50 backdrop-blur-xl">
 
                     {/* Card header */}
-                    <div className="mb-8">
-                        <div className="flex items-center justify-between mb-6">
+                    <div className="mb-6 sm:mb-8">
+                        <div className="flex items-center justify-between mb-4 sm:mb-6">
                             <span className="text-[10px] uppercase tracking-[0.25em] text-zinc-600">
                                 Member access
                             </span>
@@ -193,11 +194,11 @@ return (
                             </div>
                         </div>
 
-                        <h2 className="text-3xl font-semibold tracking-tight text-white">
+                        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
                             Welcome back.
                         </h2>
 
-                        <p className="mt-2 text-sm text-zinc-500">
+                        <p className="mt-1 sm:mt-2 text-xs sm:text-sm text-zinc-500">
                             Continue where the conversation left off.
                         </p>
                     </div>
@@ -211,13 +212,13 @@ return (
                     )}
 
 
-                    <form onSubmit={handleSubmit} className="space-y-5">
+                    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
 
                         {/* Username */}
                         <div>
                             <label
                                 htmlFor="uniqueId"
-                                className="block text-xs font-medium text-zinc-400 mb-2"
+                                className="block text-xs font-medium text-zinc-400 mb-1.5 sm:mb-2"
                             >
                                 Username or email
                             </label>
@@ -230,7 +231,7 @@ return (
                                 value={formData.uniqueId}
                                 onChange={handleChange}
                                 placeholder="you@example.com"
-                                className="w-full bg-[#0a0b0d] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-700 outline-none transition-all duration-200 focus:border-violet-500/60 focus:ring-4 focus:ring-violet-500/10"
+                                className="w-full bg-[#0a0b0d] border border-white/[0.08] rounded-xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm text-white placeholder:text-zinc-700 outline-none transition-all duration-200 focus:border-violet-500/60 focus:ring-4 focus:ring-violet-500/10"
                             />
                         </div>
 
@@ -239,7 +240,7 @@ return (
                         <div>
                             <label
                                 htmlFor="password"
-                                className="block text-xs font-medium text-zinc-400 mb-2"
+                                className="block text-xs font-medium text-zinc-400 mb-1.5 sm:mb-2"
                             >
                                 Password
                             </label>
@@ -252,7 +253,7 @@ return (
                                 value={formData.password}
                                 onChange={handleChange}
                                 placeholder="••••••••"
-                                className="w-full bg-[#0a0b0d] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white placeholder:text-zinc-700 outline-none transition-all duration-200 focus:border-violet-500/60 focus:ring-4 focus:ring-violet-500/10"
+                                className="w-full bg-[#0a0b0d] border border-white/[0.08] rounded-xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm text-white placeholder:text-zinc-700 outline-none transition-all duration-200 focus:border-violet-500/60 focus:ring-4 focus:ring-violet-500/10"
                             />
                         </div>
 
@@ -269,14 +270,14 @@ return (
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full mt-2 rounded-xl bg-white hover:bg-zinc-200 disabled:bg-zinc-800 disabled:text-zinc-600 text-black font-semibold text-sm py-3.5 transition-all duration-200 cursor-pointer disabled:cursor-not-allowed"
+                            className="w-full mt-2 rounded-xl bg-white hover:bg-zinc-200 disabled:bg-zinc-800 disabled:text-zinc-600 text-black font-semibold text-sm py-3 sm:py-3.5 transition-all duration-200 cursor-pointer disabled:cursor-not-allowed"
                         >
                             {loading ? "Verifying..." : "Continue"}
                         </button>
 
 
                         {/* Register */}
-                        <div className="pt-3 text-center">
+                        <div className="pt-2 sm:pt-3 text-center">
                             <span className="text-xs text-zinc-600">
                                 Don't have an account?
                             </span>{" "}
@@ -294,7 +295,7 @@ return (
 
 
                 {/* Footer */}
-                <div className="mt-5 flex justify-center gap-5 text-[10px] uppercase tracking-[0.2em] text-zinc-700">
+                <div className="mt-4 sm:mt-5 flex justify-center items-center gap-2 sm:gap-5 text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-zinc-700">
                     <span>Private</span>
                     <span>•</span>
                     <span>Open discussion</span>
