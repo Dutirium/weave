@@ -44,6 +44,7 @@ export type MessagesMinAggregateOutputType = {
   relation: $Enums.ArgumentRelation | null
   sequence: number | null
   createdAt: Date | null
+  stance: $Enums.Stance | null
 }
 
 export type MessagesMaxAggregateOutputType = {
@@ -56,6 +57,7 @@ export type MessagesMaxAggregateOutputType = {
   relation: $Enums.ArgumentRelation | null
   sequence: number | null
   createdAt: Date | null
+  stance: $Enums.Stance | null
 }
 
 export type MessagesCountAggregateOutputType = {
@@ -68,6 +70,7 @@ export type MessagesCountAggregateOutputType = {
   relation: number
   sequence: number
   createdAt: number
+  stance: number
   _all: number
 }
 
@@ -90,6 +93,7 @@ export type MessagesMinAggregateInputType = {
   relation?: true
   sequence?: true
   createdAt?: true
+  stance?: true
 }
 
 export type MessagesMaxAggregateInputType = {
@@ -102,6 +106,7 @@ export type MessagesMaxAggregateInputType = {
   relation?: true
   sequence?: true
   createdAt?: true
+  stance?: true
 }
 
 export type MessagesCountAggregateInputType = {
@@ -114,6 +119,7 @@ export type MessagesCountAggregateInputType = {
   relation?: true
   sequence?: true
   createdAt?: true
+  stance?: true
   _all?: true
 }
 
@@ -213,6 +219,7 @@ export type MessagesGroupByOutputType = {
   relation: $Enums.ArgumentRelation | null
   sequence: number
   createdAt: Date
+  stance: $Enums.Stance
   _count: MessagesCountAggregateOutputType | null
   _avg: MessagesAvgAggregateOutputType | null
   _sum: MessagesSumAggregateOutputType | null
@@ -248,6 +255,7 @@ export type MessagesWhereInput = {
   relation?: Prisma.EnumArgumentRelationNullableFilter<"Messages"> | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFilter<"Messages"> | number
   createdAt?: Prisma.DateTimeFilter<"Messages"> | Date | string
+  stance?: Prisma.EnumStanceFilter<"Messages"> | $Enums.Stance
   weave?: Prisma.XOR<Prisma.WeaveScalarRelationFilter, Prisma.WeaveWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   targetMessage?: Prisma.XOR<Prisma.MessagesNullableScalarRelationFilter, Prisma.MessagesWhereInput> | null
@@ -264,6 +272,7 @@ export type MessagesOrderByWithRelationInput = {
   relation?: Prisma.SortOrderInput | Prisma.SortOrder
   sequence?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  stance?: Prisma.SortOrder
   weave?: Prisma.WeaveOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
   targetMessage?: Prisma.MessagesOrderByWithRelationInput
@@ -285,6 +294,7 @@ export type MessagesWhereUniqueInput = Prisma.AtLeast<{
   relation?: Prisma.EnumArgumentRelationNullableFilter<"Messages"> | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFilter<"Messages"> | number
   createdAt?: Prisma.DateTimeFilter<"Messages"> | Date | string
+  stance?: Prisma.EnumStanceFilter<"Messages"> | $Enums.Stance
   weave?: Prisma.XOR<Prisma.WeaveScalarRelationFilter, Prisma.WeaveWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   targetMessage?: Prisma.XOR<Prisma.MessagesNullableScalarRelationFilter, Prisma.MessagesWhereInput> | null
@@ -301,6 +311,7 @@ export type MessagesOrderByWithAggregationInput = {
   relation?: Prisma.SortOrderInput | Prisma.SortOrder
   sequence?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  stance?: Prisma.SortOrder
   _count?: Prisma.MessagesCountOrderByAggregateInput
   _avg?: Prisma.MessagesAvgOrderByAggregateInput
   _max?: Prisma.MessagesMaxOrderByAggregateInput
@@ -321,6 +332,7 @@ export type MessagesScalarWhereWithAggregatesInput = {
   relation?: Prisma.EnumArgumentRelationNullableWithAggregatesFilter<"Messages"> | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntWithAggregatesFilter<"Messages"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Messages"> | Date | string
+  stance?: Prisma.EnumStanceWithAggregatesFilter<"Messages"> | $Enums.Stance
 }
 
 export type MessagesCreateInput = {
@@ -330,6 +342,7 @@ export type MessagesCreateInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
   weave: Prisma.WeaveCreateNestedOneWithoutMessagesInput
   user: Prisma.UserCreateNestedOneWithoutMessagesInput
   targetMessage?: Prisma.MessagesCreateNestedOneWithoutRepliesInput
@@ -346,6 +359,7 @@ export type MessagesUncheckedCreateInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
   replies?: Prisma.MessagesUncheckedCreateNestedManyWithoutTargetMessageInput
 }
 
@@ -356,6 +370,7 @@ export type MessagesUpdateInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
   weave?: Prisma.WeaveUpdateOneRequiredWithoutMessagesNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutMessagesNestedInput
   targetMessage?: Prisma.MessagesUpdateOneWithoutRepliesNestedInput
@@ -372,6 +387,7 @@ export type MessagesUncheckedUpdateInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
   replies?: Prisma.MessagesUncheckedUpdateManyWithoutTargetMessageNestedInput
 }
 
@@ -385,6 +401,7 @@ export type MessagesCreateManyInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
 }
 
 export type MessagesUpdateManyMutationInput = {
@@ -394,6 +411,7 @@ export type MessagesUpdateManyMutationInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
 }
 
 export type MessagesUncheckedUpdateManyInput = {
@@ -406,6 +424,7 @@ export type MessagesUncheckedUpdateManyInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
 }
 
 export type MessagesListRelationFilter = {
@@ -443,6 +462,7 @@ export type MessagesCountOrderByAggregateInput = {
   relation?: Prisma.SortOrder
   sequence?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  stance?: Prisma.SortOrder
 }
 
 export type MessagesAvgOrderByAggregateInput = {
@@ -459,6 +479,7 @@ export type MessagesMaxOrderByAggregateInput = {
   relation?: Prisma.SortOrder
   sequence?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  stance?: Prisma.SortOrder
 }
 
 export type MessagesMinOrderByAggregateInput = {
@@ -471,6 +492,7 @@ export type MessagesMinOrderByAggregateInput = {
   relation?: Prisma.SortOrder
   sequence?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  stance?: Prisma.SortOrder
 }
 
 export type MessagesSumOrderByAggregateInput = {
@@ -589,12 +611,8 @@ export type NullableEnumArgumentRelationFieldUpdateOperationsInput = {
   set?: $Enums.ArgumentRelation | null
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type EnumStanceFieldUpdateOperationsInput = {
+  set?: $Enums.Stance
 }
 
 export type MessagesUpdateOneWithoutRepliesNestedInput = {
@@ -642,6 +660,7 @@ export type MessagesCreateWithoutUserInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
   weave: Prisma.WeaveCreateNestedOneWithoutMessagesInput
   targetMessage?: Prisma.MessagesCreateNestedOneWithoutRepliesInput
   replies?: Prisma.MessagesCreateNestedManyWithoutTargetMessageInput
@@ -656,6 +675,7 @@ export type MessagesUncheckedCreateWithoutUserInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
   replies?: Prisma.MessagesUncheckedCreateNestedManyWithoutTargetMessageInput
 }
 
@@ -698,6 +718,7 @@ export type MessagesScalarWhereInput = {
   relation?: Prisma.EnumArgumentRelationNullableFilter<"Messages"> | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFilter<"Messages"> | number
   createdAt?: Prisma.DateTimeFilter<"Messages"> | Date | string
+  stance?: Prisma.EnumStanceFilter<"Messages"> | $Enums.Stance
 }
 
 export type MessagesCreateWithoutWeaveInput = {
@@ -707,6 +728,7 @@ export type MessagesCreateWithoutWeaveInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
   user: Prisma.UserCreateNestedOneWithoutMessagesInput
   targetMessage?: Prisma.MessagesCreateNestedOneWithoutRepliesInput
   replies?: Prisma.MessagesCreateNestedManyWithoutTargetMessageInput
@@ -721,6 +743,7 @@ export type MessagesUncheckedCreateWithoutWeaveInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
   replies?: Prisma.MessagesUncheckedCreateNestedManyWithoutTargetMessageInput
 }
 
@@ -757,6 +780,7 @@ export type MessagesCreateWithoutRepliesInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
   weave: Prisma.WeaveCreateNestedOneWithoutMessagesInput
   user: Prisma.UserCreateNestedOneWithoutMessagesInput
   targetMessage?: Prisma.MessagesCreateNestedOneWithoutRepliesInput
@@ -772,6 +796,7 @@ export type MessagesUncheckedCreateWithoutRepliesInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
 }
 
 export type MessagesCreateOrConnectWithoutRepliesInput = {
@@ -786,6 +811,7 @@ export type MessagesCreateWithoutTargetMessageInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
   weave: Prisma.WeaveCreateNestedOneWithoutMessagesInput
   user: Prisma.UserCreateNestedOneWithoutMessagesInput
   replies?: Prisma.MessagesCreateNestedManyWithoutTargetMessageInput
@@ -800,6 +826,7 @@ export type MessagesUncheckedCreateWithoutTargetMessageInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
   replies?: Prisma.MessagesUncheckedCreateNestedManyWithoutTargetMessageInput
 }
 
@@ -831,6 +858,7 @@ export type MessagesUpdateWithoutRepliesInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
   weave?: Prisma.WeaveUpdateOneRequiredWithoutMessagesNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutMessagesNestedInput
   targetMessage?: Prisma.MessagesUpdateOneWithoutRepliesNestedInput
@@ -846,6 +874,7 @@ export type MessagesUncheckedUpdateWithoutRepliesInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
 }
 
 export type MessagesUpsertWithWhereUniqueWithoutTargetMessageInput = {
@@ -873,6 +902,7 @@ export type MessagesCreateManyUserInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
 }
 
 export type MessagesUpdateWithoutUserInput = {
@@ -882,6 +912,7 @@ export type MessagesUpdateWithoutUserInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
   weave?: Prisma.WeaveUpdateOneRequiredWithoutMessagesNestedInput
   targetMessage?: Prisma.MessagesUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.MessagesUpdateManyWithoutTargetMessageNestedInput
@@ -896,6 +927,7 @@ export type MessagesUncheckedUpdateWithoutUserInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
   replies?: Prisma.MessagesUncheckedUpdateManyWithoutTargetMessageNestedInput
 }
 
@@ -908,6 +940,7 @@ export type MessagesUncheckedUpdateManyWithoutUserInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
 }
 
 export type MessagesCreateManyWeaveInput = {
@@ -919,6 +952,7 @@ export type MessagesCreateManyWeaveInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
 }
 
 export type MessagesUpdateWithoutWeaveInput = {
@@ -928,6 +962,7 @@ export type MessagesUpdateWithoutWeaveInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
   user?: Prisma.UserUpdateOneRequiredWithoutMessagesNestedInput
   targetMessage?: Prisma.MessagesUpdateOneWithoutRepliesNestedInput
   replies?: Prisma.MessagesUpdateManyWithoutTargetMessageNestedInput
@@ -942,6 +977,7 @@ export type MessagesUncheckedUpdateWithoutWeaveInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
   replies?: Prisma.MessagesUncheckedUpdateManyWithoutTargetMessageNestedInput
 }
 
@@ -954,6 +990,7 @@ export type MessagesUncheckedUpdateManyWithoutWeaveInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
 }
 
 export type MessagesCreateManyTargetMessageInput = {
@@ -965,6 +1002,7 @@ export type MessagesCreateManyTargetMessageInput = {
   relation?: $Enums.ArgumentRelation | null
   sequence: number
   createdAt?: Date | string
+  stance: $Enums.Stance
 }
 
 export type MessagesUpdateWithoutTargetMessageInput = {
@@ -974,6 +1012,7 @@ export type MessagesUpdateWithoutTargetMessageInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
   weave?: Prisma.WeaveUpdateOneRequiredWithoutMessagesNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutMessagesNestedInput
   replies?: Prisma.MessagesUpdateManyWithoutTargetMessageNestedInput
@@ -988,6 +1027,7 @@ export type MessagesUncheckedUpdateWithoutTargetMessageInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
   replies?: Prisma.MessagesUncheckedUpdateManyWithoutTargetMessageNestedInput
 }
 
@@ -1000,6 +1040,7 @@ export type MessagesUncheckedUpdateManyWithoutTargetMessageInput = {
   relation?: Prisma.NullableEnumArgumentRelationFieldUpdateOperationsInput | $Enums.ArgumentRelation | null
   sequence?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stance?: Prisma.EnumStanceFieldUpdateOperationsInput | $Enums.Stance
 }
 
 
@@ -1043,6 +1084,7 @@ export type MessagesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   relation?: boolean
   sequence?: boolean
   createdAt?: boolean
+  stance?: boolean
   weave?: boolean | Prisma.WeaveDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   targetMessage?: boolean | Prisma.Messages$targetMessageArgs<ExtArgs>
@@ -1060,6 +1102,7 @@ export type MessagesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   relation?: boolean
   sequence?: boolean
   createdAt?: boolean
+  stance?: boolean
   weave?: boolean | Prisma.WeaveDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   targetMessage?: boolean | Prisma.Messages$targetMessageArgs<ExtArgs>
@@ -1075,6 +1118,7 @@ export type MessagesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   relation?: boolean
   sequence?: boolean
   createdAt?: boolean
+  stance?: boolean
   weave?: boolean | Prisma.WeaveDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   targetMessage?: boolean | Prisma.Messages$targetMessageArgs<ExtArgs>
@@ -1090,9 +1134,10 @@ export type MessagesSelectScalar = {
   relation?: boolean
   sequence?: boolean
   createdAt?: boolean
+  stance?: boolean
 }
 
-export type MessagesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "weave_id" | "user_id" | "clientMessage_id" | "target_message_id" | "relation" | "sequence" | "createdAt", ExtArgs["result"]["messages"]>
+export type MessagesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "weave_id" | "user_id" | "clientMessage_id" | "target_message_id" | "relation" | "sequence" | "createdAt" | "stance", ExtArgs["result"]["messages"]>
 export type MessagesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   weave?: boolean | Prisma.WeaveDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1129,6 +1174,7 @@ export type $MessagesPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     relation: $Enums.ArgumentRelation | null
     sequence: number
     createdAt: Date
+    stance: $Enums.Stance
   }, ExtArgs["result"]["messages"]>
   composites: {}
 }
@@ -1565,6 +1611,7 @@ export interface MessagesFieldRefs {
   readonly relation: Prisma.FieldRef<"Messages", 'ArgumentRelation'>
   readonly sequence: Prisma.FieldRef<"Messages", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Messages", 'DateTime'>
+  readonly stance: Prisma.FieldRef<"Messages", 'Stance'>
 }
     
 

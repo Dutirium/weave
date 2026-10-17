@@ -1,0 +1,263 @@
+/* =========================================
+   Global Weaves - LeetCode Style UI
+========================================= */
+
+:root {
+    --lc-bg: #1a1a1a;
+    --lc-card-bg: #282828;
+    --lc-row-even: rgba(255, 255, 255, 0.02);
+    --lc-row-hover: rgba(255, 255, 255, 0.07);
+    --lc-border: #333333;
+    --lc-text-primary: #eff1f65c;
+    --lc-text-title: #ffffff;
+    --lc-text-muted: #8a8a8a;
+    --lc-accent-green: #2cbb5d;
+}
+
+.global {
+    min-height: 100vh;
+    width: 100%;
+    background: var(--lc-bg);
+    color: #eff1f6;
+    padding: 40px 20px 80px;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+/* =========================
+   Navigation / Header
+========================= */
+
+.nav-bar {
+    width: min(960px, 100%);
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 20px;
+    font-weight: 500;
+
+    color: var(--lc-text-muted);
+}
+
+.nav-bar strong {
+    color: var(--lc-text-title);
+    font-weight: 600;
+}
+
+
+/* =========================
+   Weave Container Table
+========================= */
+
+.weave-list {
+    width: min(960px, 100%);
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* Connected rows like a list table */
+
+    background: var(--lc-card-bg);
+    border: 1px solid var(--lc-border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+/* =========================
+   Individual Row
+========================= */
+
+.weave-row {
+    display: flex;
+    align-items: center;
+
+    min-height: 52px;
+    width: 100%;
+
+    padding: 12px 20px;
+
+    box-sizing: border-box;
+
+    background: transparent;
+    border-bottom: 1px solid var(--lc-border);
+
+    transition: background 0.15s ease;
+
+    cursor: pointer;
+}
+
+.weave-list .weave-row:last-child {
+    border-bottom: none;
+}
+
+/* Subtle Alternating Zebra Stripes */
+.weave-list .weave-row:nth-child(even) {
+    background: var(--lc-row-even);
+}
+
+/* Crisp LeetCode Hover State */
+.weave-row:hover {
+    background: var(--lc-row-hover) !important;
+}
+
+
+/* =========================
+   Index Column
+========================= */
+
+.weave-index {
+    width: 48px;
+    flex-shrink: 0;
+
+    font-size: 14px;
+    font-weight: 400;
+
+    color: var(--lc-text-muted);
+}
+
+
+/* =========================
+   Information Body
+========================= */
+
+.weave-info {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 20px;
+    gap: 16px;
+}
+
+.weave-title {
+    margin: 0;
+
+    color: var(--lc-text-title);
+
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    transition: color 0.15s ease;
+}
+
+.weave-row:hover .weave-title {
+    color: #3b82f6; /* Subtle link highlight on row hover */
+}
+
+.weave-meta {
+    margin: 0;
+
+    color: var(--lc-text-muted);
+
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.weave-meta strong {
+    color: var(--lc-accent-green); /* LeetCode accent green for status/counts */
+    font-weight: 500;
+}
+
+
+/* =========================
+   Action Button
+========================= */
+
+.weave-action {
+    flex-shrink: 0;
+}
+
+.oopen-btn {
+    min-width: 68px;
+
+    padding: 6px 14px;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--lc-text-title);
+
+    font-size: 13px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: all 0.15s ease;
+}
+
+.oopen-btn:hover {
+    background: var(--lc-accent-green);
+    color: #ffffff;
+}
+
+.oopen-btn:active {
+    opacity: 0.9;
+}
+
+
+/* =========================
+   Empty / Loading Message
+========================= */
+
+.empty-message,
+.weave-list > div:not(.weave-row) {
+    color: var(--lc-text-muted);
+    font-size: 14px;
+    text-align: center;
+    padding: 36px 0;
+}
+
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 640px) {
+    .global {
+        padding: 20px 10px 40px;
+    }
+
+    .weave-row {
+        padding: 10px 14px;
+        min-height: 48px;
+    }
+
+    .weave-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+
+    .weave-title {
+        font-size: 14px;
+    }
+
+    .weave-meta {
+        font-size: 12px;
+    }
+
+    .weave-index {
+        width: 32px;
+        font-size: 12px;
+    }
+
+    .oopen-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+}

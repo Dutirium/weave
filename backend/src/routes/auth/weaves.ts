@@ -3,6 +3,8 @@ import type { Request, Response } from "express";
 import { prisma } from "../../db.js";
 import { authenticate } from "../../middleware/authenticate.js";
 import { Prisma } from "../../generated/prisma/client.js";
+import { Stance } from "../../generated/prisma/client.js";
+import { broadcastToWeave } from "../../websocket.js" ;
 
 const router = Router();
 const validRelations = [
@@ -14,7 +16,7 @@ const validRelations = [
 ];
 
 
-//fetch all weaves for a global dashboard 
+//fetch all weaves for personal dashboard 
 router.get("/", authenticate, async (req: Request, res: Response) =>{
     try{
         const weaves = await prisma.weave.findMany({
@@ -52,13 +54,133 @@ router.get("/", authenticate, async (req: Request, res: Response) =>{
     }
 });
 
+//to push a new weave into the database
+router.post("/", authenticate, async (req: Request, res: Response) =>{
+
+    try{
+
+        //dismiss the user if null 
+        if(!req.user){
+            res.status(401).json({
+                error: "Authentication required"
+            });
+            return;
+        }
+
+        const { title } = req.body;
+        
+        //to check if the title is empty 
+        if(!title || typeof title !== "string" || title.trim() == ""){
+            res.status(400).json({
+                error: "Title is required"
+            });
+            return;
+        }
+
+        const weave = await prisma.weave.create({
+            data: {
+                title: title.trim(),
+                creator: req.user.id,
+            },  
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        username: true,
+                    },
+                },
+            },
+        });
+
+        res.status(201).json({
+            weave,
+        });
+        return;
+
+    }catch(e){
+        console.error("Error in creating a weave: " , e);
+
+        res.status(500).json({
+            error: "Internal Server Error"
+        });
+    }
+});
+
+
+//to push the stance of the user for a particular weave
+router.patch("/:id/stance", authenticate, async (req: Request<{ id: string}>, res: Response) => {
+    try{
+        if(!req.user){
+            res.status(401).json({
+                error: "Authentication Required"
+            });
+            return;
+        }
+
+        const { id: weaveId } = req.params;
+        const { stance } = req.body;
+
+        //validate stance
+        if(!stance || stance != Stance.SUPPORT && stance != Stance.CHALLENGE && stance != Stance.NEUTRAL){
+            res.status(400).json({
+                error: "Stance is required",
+            });
+            return;
+        }
+
+        //check if the weave exists
+        const weave = await prisma.weave.findUnique({
+            where:{
+                id: weaveId,
+            }
+        });
+
+        if(!weave){
+            res.status(404).json({
+                error: "Weave not found",
+            });
+            return;
+        }
+
+        //upsert the stance for the user and weave
+        const userStance = await prisma.weaveStance.upsert({
+            where: {
+                user_id_weave_id: {
+                    user_id: req.user.id,
+                    weave_id: weaveId,
+                }
+            },
+            update: {
+                stance: stance.trim(),
+            },
+            create: {
+                user_id: req.user.id,
+                weave_id: weaveId,
+                stance: stance.trim(),
+            }
+        });
+
+        res.status(200).json({
+            message: "Stance updated successfully",
+            stance: userStance,
+        });
+
+    }catch(e){
+        console.error("Error updating stance: ", e);
+
+        res.status(500).json({
+            error: "Internal Server Error"
+        });
+    }
+});
+
 //To fetch a particular weave
 router.get("/:id", authenticate, async (req: Request<{id: string}>, res: Response) =>{
 
     try{
 
         const { id } = req.params;
-
+        
         if(!id){
             res.status(400).json({
                 error: "Id not found"
@@ -66,6 +188,7 @@ router.get("/:id", authenticate, async (req: Request<{id: string}>, res: Respons
             return;
         }
 
+        //fetch the weave with the given id and include the user and stances
         const weave = await prisma.weave.findUnique({
             where: {
                 id,
@@ -75,6 +198,15 @@ router.get("/:id", authenticate, async (req: Request<{id: string}>, res: Respons
                     select: {
                         id: true,
                         username: true,
+                    },
+                },
+                stances: {
+                    where: {
+                        user_id: req.user!.id,
+                    },
+                    select: {
+                        stance: true,
+                        switch: true,
                     },
                 },
             },
@@ -171,7 +303,7 @@ router.get("/:id/messages", authenticate, async (req: Request<{ id: string}>, re
     }
 });
 
-//push the messages related to a particular weave 
+//push the messages related to a particular weave and simultaneously broadcast it to the websockets
 router.post("/:id/messages", authenticate, async (req: Request<{ id: string}>, res: Response )=>{
     try{
 
@@ -240,6 +372,7 @@ router.post("/:id/messages", authenticate, async (req: Request<{ id: string}>, r
             }
 
         }
+
         //serializing transaction for unique messages
         let attempts = 0;
 
@@ -254,6 +387,14 @@ router.post("/:id/messages", authenticate, async (req: Request<{ id: string}>, r
                                 weave_id_clientMessage_id: {
                                     weave_id: weaveId,
                                     clientMessage_id: clientMessageId.trim(),
+                                },
+                            },
+                            include:{
+                                user:{
+                                    select:{
+                                        username: true,
+                                        id: true,
+                                    }
                                 }
                             }
                         });
@@ -284,6 +425,7 @@ router.post("/:id/messages", authenticate, async (req: Request<{ id: string}>, r
                             target_message_id: targetMessageId ?? null,
                             relation: relation ?? null,
                             sequence: nextSequence,
+                            stance: req.body.stance ?? null,
                         },
                         include:{
                             user:{
@@ -299,6 +441,14 @@ router.post("/:id/messages", authenticate, async (req: Request<{ id: string}>, r
                    isolationLevel: Prisma.TransactionIsolationLevel.Serializable, 
                 }             
             );
+
+
+            //broadcast the newly pushed messages to the websocket
+            broadcastToWeave(weaveId, {
+                type:"message:new",
+                message,
+            });
+
 
             res.status(201).json({
                 message,
@@ -335,57 +485,6 @@ router.post("/:id/messages", authenticate, async (req: Request<{ id: string}>, r
     }
 });
 
-//to push a new weave into the database
-router.post("/", authenticate, async (req: Request, res: Response) =>{
-
-    try{
-
-        //dismiss the user if null 
-        if(!req.user){
-            res.status(401).json({
-                error: "Authentication required"
-            });
-            return;
-        }
-
-        const { title } = req.body;
-        
-        //to check if the title is empty 
-        if(!title || typeof title !== "string" || title.trim() == ""){
-            res.status(400).json({
-                error: "Title is required"
-            });
-            return;
-        }
-
-        const weave = await prisma.weave.create({
-            data: {
-                title: title.trim(),
-                creator: req.user.id,
-            },  
-            include: {
-                user: {
-                    select: {
-                        id: true,
-                        username: true,
-                    },
-                },
-            },
-        });
-
-        res.status(201).json({
-            weave,
-        });
-        return;
-
-    }catch(e){
-        console.error("Error in creating a weave: " , e);
-
-        res.status(500).json({
-            error: "Internal Server Error"
-        });
-    }
-});
 
 
 //delete a weave

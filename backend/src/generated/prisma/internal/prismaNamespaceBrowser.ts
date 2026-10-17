@@ -54,7 +54,9 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Weave: 'Weave',
-  Messages: 'Messages'
+  Messages: 'Messages',
+  WeaveStance: 'WeaveStance',
+  Post: 'Post'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -78,7 +80,8 @@ export const UserScalarFieldEnum = {
   username: 'username',
   email: 'email',
   passwordHash: 'passwordHash',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  credibility: 'credibility'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -97,6 +100,7 @@ export const WeaveScalarFieldEnum = {
   id: 'id',
   creator: 'creator',
   title: 'title',
+  totalSwitches: 'totalSwitches',
   createdAt: 'createdAt'
 } as const
 
@@ -112,10 +116,35 @@ export const MessagesScalarFieldEnum = {
   target_message_id: 'target_message_id',
   relation: 'relation',
   sequence: 'sequence',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  stance: 'stance'
 } as const
 
 export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
+
+
+export const WeaveStanceScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  weave_id: 'weave_id',
+  stance: 'stance',
+  switch: 'switch',
+  createdAt: 'createdAt'
+} as const
+
+export type WeaveStanceScalarFieldEnum = (typeof WeaveStanceScalarFieldEnum)[keyof typeof WeaveStanceScalarFieldEnum]
+
+
+export const PostScalarFieldEnum = {
+  user_id: 'user_id',
+  id: 'id',
+  title: 'title',
+  link: 'link',
+  content: 'content',
+  createdAt: 'createdAt'
+} as const
+
+export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -20,8 +20,18 @@ export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayloa
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
+}
+
+export type UserAvgAggregateOutputType = {
+  credibility: number | null
+}
+
+export type UserSumAggregateOutputType = {
+  credibility: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -30,6 +40,7 @@ export type UserMinAggregateOutputType = {
   email: string | null
   passwordHash: string | null
   createdAt: Date | null
+  credibility: number | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -38,6 +49,7 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   passwordHash: string | null
   createdAt: Date | null
+  credibility: number | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -46,9 +58,18 @@ export type UserCountAggregateOutputType = {
   email: number
   passwordHash: number
   createdAt: number
+  credibility: number
   _all: number
 }
 
+
+export type UserAvgAggregateInputType = {
+  credibility?: true
+}
+
+export type UserSumAggregateInputType = {
+  credibility?: true
+}
 
 export type UserMinAggregateInputType = {
   id?: true
@@ -56,6 +77,7 @@ export type UserMinAggregateInputType = {
   email?: true
   passwordHash?: true
   createdAt?: true
+  credibility?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -64,6 +86,7 @@ export type UserMaxAggregateInputType = {
   email?: true
   passwordHash?: true
   createdAt?: true
+  credibility?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -72,6 +95,7 @@ export type UserCountAggregateInputType = {
   email?: true
   passwordHash?: true
   createdAt?: true
+  credibility?: true
   _all?: true
 }
 
@@ -113,6 +137,18 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: UserAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: UserSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserMinAggregateInputType
@@ -143,6 +179,8 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: UserCountAggregateInputType | true
+  _avg?: UserAvgAggregateInputType
+  _sum?: UserSumAggregateInputType
   _min?: UserMinAggregateInputType
   _max?: UserMaxAggregateInputType
 }
@@ -153,7 +191,10 @@ export type UserGroupByOutputType = {
   email: string
   passwordHash: string
   createdAt: Date
+  credibility: number
   _count: UserCountAggregateOutputType | null
+  _avg: UserAvgAggregateOutputType | null
+  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
@@ -182,9 +223,12 @@ export type UserWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  credibility?: Prisma.IntFilter<"User"> | number
   weave?: Prisma.WeaveListRelationFilter
   messages?: Prisma.MessagesListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  stances?: Prisma.WeaveStanceListRelationFilter
+  posts?: Prisma.PostListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -193,9 +237,12 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  credibility?: Prisma.SortOrder
   weave?: Prisma.WeaveOrderByRelationAggregateInput
   messages?: Prisma.MessagesOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
+  stances?: Prisma.WeaveStanceOrderByRelationAggregateInput
+  posts?: Prisma.PostOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -207,9 +254,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   passwordHash?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  credibility?: Prisma.IntFilter<"User"> | number
   weave?: Prisma.WeaveListRelationFilter
   messages?: Prisma.MessagesListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  stances?: Prisma.WeaveStanceListRelationFilter
+  posts?: Prisma.PostListRelationFilter
 }, "id" | "username" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -218,9 +268,12 @@ export type UserOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  credibility?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
+  _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
+  _sum?: Prisma.UserSumOrderByAggregateInput
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -232,6 +285,7 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  credibility?: Prisma.IntWithAggregatesFilter<"User"> | number
 }
 
 export type UserCreateInput = {
@@ -240,9 +294,12 @@ export type UserCreateInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  credibility?: number
   weave?: Prisma.WeaveCreateNestedManyWithoutUserInput
   messages?: Prisma.MessagesCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  stances?: Prisma.WeaveStanceCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -251,9 +308,12 @@ export type UserUncheckedCreateInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  credibility?: number
   weave?: Prisma.WeaveUncheckedCreateNestedManyWithoutUserInput
   messages?: Prisma.MessagesUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  stances?: Prisma.WeaveStanceUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -262,9 +322,12 @@ export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
   weave?: Prisma.WeaveUpdateManyWithoutUserNestedInput
   messages?: Prisma.MessagesUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  stances?: Prisma.WeaveStanceUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -273,9 +336,12 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
   weave?: Prisma.WeaveUncheckedUpdateManyWithoutUserNestedInput
   messages?: Prisma.MessagesUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  stances?: Prisma.WeaveStanceUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -284,6 +350,7 @@ export type UserCreateManyInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  credibility?: number
 }
 
 export type UserUpdateManyMutationInput = {
@@ -292,6 +359,7 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -300,6 +368,7 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -308,6 +377,11 @@ export type UserCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  credibility?: Prisma.SortOrder
+}
+
+export type UserAvgOrderByAggregateInput = {
+  credibility?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -316,6 +390,7 @@ export type UserMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  credibility?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -324,6 +399,11 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  credibility?: Prisma.SortOrder
+}
+
+export type UserSumOrderByAggregateInput = {
+  credibility?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -337,6 +417,14 @@ export type StringFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -381,14 +469,45 @@ export type UserUpdateOneRequiredWithoutMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesInput, Prisma.UserUpdateWithoutMessagesInput>, Prisma.UserUncheckedUpdateWithoutMessagesInput>
 }
 
+export type UserCreateNestedOneWithoutStancesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStancesInput, Prisma.UserUncheckedCreateWithoutStancesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStancesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStancesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStancesInput, Prisma.UserUncheckedCreateWithoutStancesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStancesInput
+  upsert?: Prisma.UserUpsertWithoutStancesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStancesInput, Prisma.UserUpdateWithoutStancesInput>, Prisma.UserUncheckedUpdateWithoutStancesInput>
+}
+
+export type UserCreateNestedOneWithoutPostsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPostsInput, Prisma.UserUncheckedCreateWithoutPostsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPostsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPostsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPostsInput, Prisma.UserUncheckedCreateWithoutPostsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPostsInput
+  upsert?: Prisma.UserUpsertWithoutPostsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPostsInput, Prisma.UserUpdateWithoutPostsInput>, Prisma.UserUncheckedUpdateWithoutPostsInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   username: string
   email: string
   passwordHash: string
   createdAt?: Date | string
+  credibility?: number
   weave?: Prisma.WeaveCreateNestedManyWithoutUserInput
   messages?: Prisma.MessagesCreateNestedManyWithoutUserInput
+  stances?: Prisma.WeaveStanceCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -397,8 +516,11 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  credibility?: number
   weave?: Prisma.WeaveUncheckedCreateNestedManyWithoutUserInput
   messages?: Prisma.MessagesUncheckedCreateNestedManyWithoutUserInput
+  stances?: Prisma.WeaveStanceUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -423,8 +545,11 @@ export type UserUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
   weave?: Prisma.WeaveUpdateManyWithoutUserNestedInput
   messages?: Prisma.MessagesUpdateManyWithoutUserNestedInput
+  stances?: Prisma.WeaveStanceUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -433,8 +558,11 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
   weave?: Prisma.WeaveUncheckedUpdateManyWithoutUserNestedInput
   messages?: Prisma.MessagesUncheckedUpdateManyWithoutUserNestedInput
+  stances?: Prisma.WeaveStanceUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWeaveInput = {
@@ -443,8 +571,11 @@ export type UserCreateWithoutWeaveInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  credibility?: number
   messages?: Prisma.MessagesCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  stances?: Prisma.WeaveStanceCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWeaveInput = {
@@ -453,8 +584,11 @@ export type UserUncheckedCreateWithoutWeaveInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  credibility?: number
   messages?: Prisma.MessagesUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  stances?: Prisma.WeaveStanceUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWeaveInput = {
@@ -479,8 +613,11 @@ export type UserUpdateWithoutWeaveInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
   messages?: Prisma.MessagesUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  stances?: Prisma.WeaveStanceUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWeaveInput = {
@@ -489,8 +626,11 @@ export type UserUncheckedUpdateWithoutWeaveInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
   messages?: Prisma.MessagesUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  stances?: Prisma.WeaveStanceUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMessagesInput = {
@@ -499,8 +639,11 @@ export type UserCreateWithoutMessagesInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  credibility?: number
   weave?: Prisma.WeaveCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  stances?: Prisma.WeaveStanceCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -509,8 +652,11 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   email: string
   passwordHash: string
   createdAt?: Date | string
+  credibility?: number
   weave?: Prisma.WeaveUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  stances?: Prisma.WeaveStanceUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -535,8 +681,11 @@ export type UserUpdateWithoutMessagesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
   weave?: Prisma.WeaveUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  stances?: Prisma.WeaveStanceUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -545,8 +694,147 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
   weave?: Prisma.WeaveUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  stances?: Prisma.WeaveStanceUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutStancesInput = {
+  id?: string
+  username: string
+  email: string
+  passwordHash: string
+  createdAt?: Date | string
+  credibility?: number
+  weave?: Prisma.WeaveCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessagesCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutStancesInput = {
+  id?: string
+  username: string
+  email: string
+  passwordHash: string
+  createdAt?: Date | string
+  credibility?: number
+  weave?: Prisma.WeaveUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessagesUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutStancesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStancesInput, Prisma.UserUncheckedCreateWithoutStancesInput>
+}
+
+export type UserUpsertWithoutStancesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStancesInput, Prisma.UserUncheckedUpdateWithoutStancesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStancesInput, Prisma.UserUncheckedCreateWithoutStancesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStancesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStancesInput, Prisma.UserUncheckedUpdateWithoutStancesInput>
+}
+
+export type UserUpdateWithoutStancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
+  weave?: Prisma.WeaveUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessagesUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
+  weave?: Prisma.WeaveUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessagesUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPostsInput = {
+  id?: string
+  username: string
+  email: string
+  passwordHash: string
+  createdAt?: Date | string
+  credibility?: number
+  weave?: Prisma.WeaveCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessagesCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  stances?: Prisma.WeaveStanceCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPostsInput = {
+  id?: string
+  username: string
+  email: string
+  passwordHash: string
+  createdAt?: Date | string
+  credibility?: number
+  weave?: Prisma.WeaveUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessagesUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  stances?: Prisma.WeaveStanceUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPostsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPostsInput, Prisma.UserUncheckedCreateWithoutPostsInput>
+}
+
+export type UserUpsertWithoutPostsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPostsInput, Prisma.UserUncheckedUpdateWithoutPostsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPostsInput, Prisma.UserUncheckedCreateWithoutPostsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPostsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPostsInput, Prisma.UserUncheckedUpdateWithoutPostsInput>
+}
+
+export type UserUpdateWithoutPostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
+  weave?: Prisma.WeaveUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessagesUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  stances?: Prisma.WeaveStanceUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  credibility?: Prisma.IntFieldUpdateOperationsInput | number
+  weave?: Prisma.WeaveUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessagesUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  stances?: Prisma.WeaveStanceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -558,12 +846,16 @@ export type UserCountOutputType = {
   weave: number
   messages: number
   sessions: number
+  stances: number
+  posts: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   weave?: boolean | UserCountOutputTypeCountWeaveArgs
   messages?: boolean | UserCountOutputTypeCountMessagesArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  stances?: boolean | UserCountOutputTypeCountStancesArgs
+  posts?: boolean | UserCountOutputTypeCountPostsArgs
 }
 
 /**
@@ -597,6 +889,20 @@ export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.SessionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountStancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WeaveStanceWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -604,9 +910,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   email?: boolean
   passwordHash?: boolean
   createdAt?: boolean
+  credibility?: boolean
   weave?: boolean | Prisma.User$weaveArgs<ExtArgs>
   messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  stances?: boolean | Prisma.User$stancesArgs<ExtArgs>
+  posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -616,6 +925,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   passwordHash?: boolean
   createdAt?: boolean
+  credibility?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -624,6 +934,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   passwordHash?: boolean
   createdAt?: boolean
+  credibility?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -632,13 +943,16 @@ export type UserSelectScalar = {
   email?: boolean
   passwordHash?: boolean
   createdAt?: boolean
+  credibility?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "email" | "passwordHash" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "email" | "passwordHash" | "createdAt" | "credibility", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   weave?: boolean | Prisma.User$weaveArgs<ExtArgs>
   messages?: boolean | Prisma.User$messagesArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  stances?: boolean | Prisma.User$stancesArgs<ExtArgs>
+  posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -650,6 +964,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     weave: Prisma.$WeavePayload<ExtArgs>[]
     messages: Prisma.$MessagesPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
+    stances: Prisma.$WeaveStancePayload<ExtArgs>[]
+    posts: Prisma.$PostPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -657,6 +973,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     email: string
     passwordHash: string
     createdAt: Date
+    credibility: number
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1054,6 +1371,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   weave<T extends Prisma.User$weaveArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$weaveArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WeavePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messages<T extends Prisma.User$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stances<T extends Prisma.User$stancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$stancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WeaveStancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  posts<T extends Prisma.User$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1088,6 +1407,7 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly credibility: Prisma.FieldRef<"User", 'Int'>
 }
     
 
@@ -1550,6 +1870,54 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * User.stances
+ */
+export type User$stancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WeaveStance
+   */
+  select?: Prisma.WeaveStanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WeaveStance
+   */
+  omit?: Prisma.WeaveStanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WeaveStanceInclude<ExtArgs> | null
+  where?: Prisma.WeaveStanceWhereInput
+  orderBy?: Prisma.WeaveStanceOrderByWithRelationInput | Prisma.WeaveStanceOrderByWithRelationInput[]
+  cursor?: Prisma.WeaveStanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WeaveStanceScalarFieldEnum | Prisma.WeaveStanceScalarFieldEnum[]
+}
+
+/**
+ * User.posts
+ */
+export type User$postsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Post
+   */
+  select?: Prisma.PostSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Post
+   */
+  omit?: Prisma.PostOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostInclude<ExtArgs> | null
+  where?: Prisma.PostWhereInput
+  orderBy?: Prisma.PostOrderByWithRelationInput | Prisma.PostOrderByWithRelationInput[]
+  cursor?: Prisma.PostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PostScalarFieldEnum | Prisma.PostScalarFieldEnum[]
 }
 
 /**

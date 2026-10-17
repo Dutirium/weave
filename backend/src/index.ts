@@ -5,6 +5,11 @@ import authRouter from './routes/auth/auth.js';
 import { prisma } from './db.js';
 import cookieParser from "cookie-parser";
 import weaveRouter from "./routes/auth/weaves.js"
+import globalRouter from "./routes/global.js";
+import userRouter from "./routes/user.js";
+import { createServer } from "http";
+import { setupWebSocket } from "./websocket.js";
+
 
 dotenv.config();
 
@@ -27,6 +32,12 @@ app.use((req, res, next) => {
     next();
 });
 
+// all the user related queries goes in here 
+app.use('/api/user', userRouter);
+
+//Route from global router
+app.use('/api/global', globalRouter);
+
 //Routes from authRouter
 app.use('/api/auth', authRouter);
 
@@ -47,6 +58,15 @@ app.get('/api/health/db', async (req: Request, res: Response) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Backend server running on http://localhost:${PORT}`);
-});
+const server = createServer(app);
+
+setupWebSocket(server);
+
+server.listen(PORT, ()=>{
+    console.log(`Backend server running on http://localhost: ${PORT}`);
+})
+
+
+// app.listen(PORT, () => {
+//     console.log(`Backend server running on http://localhost:${PORT}`);
+// });

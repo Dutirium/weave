@@ -37,3 +37,13 @@ export type Weave = Prisma.WeaveModel
  * 
  */
 export type Messages = Prisma.MessagesModel
+/**
+ * Model WeaveStance
+ * 
+ */
+export type WeaveStance = Prisma.WeaveStanceModel
+/**
+ * Model Post
+ * 
+ */
+export type Post = Prisma.PostModel

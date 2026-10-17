@@ -7,6 +7,11 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Stance{
+  SUPPORT
+  CHALLENGE
+  NEUTRAL
+}
 
 enum ArgumentRelation{
 
@@ -24,10 +29,13 @@ model User {
   email        String   @unique
   passwordHash String
   createdAt    DateTime @default(now())
+  credibility Int @default(0) // added user credit Score 
 
   weave        Weave[]
   messages     Messages[]
   sessions     Session[]
+  stances      WeaveStance[]
+  posts        Post[]
 }
 
 model Session {
@@ -44,14 +52,15 @@ model Weave {
   id String @id @default(uuid())
   creator String
   title String
+  totalSwitches Int @default(0)
   createdAt DateTime @default(now())
-
-  //The user here could be used as a property to get al the user data in one go example Weave.user 
-  user User @relation(fields: [creator], references: [id], onDelete: Cascade )
+  
+  //The user here could be used as a property to get all the user data in one go example Weave.user 
+  user User @relation(fields: [creator], references: [id], onDelete: Cascade)
   
   messages Messages[]
+  stances WeaveStance[]
 
-  @@index([id])
 }
 
 model Messages{
@@ -64,6 +73,7 @@ model Messages{
   relation ArgumentRelation?
   sequence  Int
   createdAt DateTime @default(now())
+  stance Stance
 
   weave Weave @relation(fields: [weave_id], references: [id], onDelete: Cascade )
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
@@ -79,4 +89,31 @@ model Messages{
 
 
   @@index([weave_id])
+}
+
+model WeaveStance{
+  id String @id @default(uuid())
+  user_id String
+  weave_id String
+  stance Stance
+  switch Int @default(3) //Added switch  
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade )
+  weave Weave @relation(fields: [weave_id], references: [id], onDelete: Cascade )
+
+  @@unique([user_id,weave_id])
+  @@index([user_id])
+  @@index([weave_id, stance])
+}
+
+model Post{
+  user_id String
+  id String @id @default(uuid())
+  title String
+  link String
+  content String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade )
 }

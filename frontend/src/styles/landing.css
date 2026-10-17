@@ -1,0 +1,521 @@
+/* =========================================
+   Base & Root Tokens
+========================================= */
+
+:root {
+    --bg-main: #07080a;
+    --surface-glass: rgba(18, 19, 24, 0.65);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.2);
+    
+    --text-primary: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --text-muted: #52525b;
+
+    --accent-emerald: #34d399;
+    --accent-emerald-soft: rgba(52, 211, 153, 0.08);
+    --accent-coral: #f87171;
+}
+
+.landing-page {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+
+    background-color: var(--bg-main);
+    background-image: 
+        radial-gradient(ellipse 80% 60% at 50% -20%, rgba(120, 119, 198, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(52, 211, 153, 0.05), transparent);
+    
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+/* =========================================
+   Main Content Layer
+========================================= */
+
+.landing-content {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+/* =========================================
+   Navbar (Glassmorphic)
+========================================= */
+
+.landing-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 40px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.landing-logo {
+    margin: 0;
+
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+}
+
+.landing-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Nav Actions */
+
+.landing-login-btn {
+    padding: 8px 18px;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    background: transparent;
+    color: var(--text-secondary);
+
+    font-size: 13px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-login-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-subtle);
+}
+
+.landing-start-btn {
+    padding: 8px 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #07080a;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-start-btn:hover {
+    background: #e4e4e7;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.landing-start-btn:active {
+    transform: translateY(0) scale(0.97);
+}
+
+
+/* =========================================
+   Hero Section
+========================================= */
+
+.landing-hero {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 60px 24px;
+}
+
+.landing-hero-content {
+    width: 100%;
+    max-width: 860px;
+
+    text-align: center;
+}
+
+/* Eyebrow Badge */
+
+.landing-eyebrow {
+    display: inline-block;
+    margin: 0 0 24px;
+
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-subtle);
+
+    color: var(--text-secondary);
+
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+}
+
+/* Hero Title */
+
+.landing-title {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(44px, 6.5vw, 88px);
+    font-weight: 700;
+
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+}
+
+.landing-title-muted {
+    background: linear-gradient(180deg, #a1a1aa 0%, #52525b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Hero Description */
+
+.landing-description {
+    max-width: 620px;
+
+    margin: 28px auto 0;
+
+    color: var(--text-secondary);
+
+    font-size: 17px;
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+}
+
+/* Hero Buttons */
+
+.landing-hero-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 40px;
+}
+
+.landing-primary-btn,
+.landing-secondary-btn,
+.landing-global-btn {
+    min-height: 46px;
+
+    padding: 0 26px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-primary-btn:active,
+.landing-secondary-btn:active,
+.landing-global-btn:active {
+    transform: scale(0.97);
+}
+
+/* Primary Button */
+
+.landing-primary-btn {
+    border: 1px solid #ffffff;
+
+    background: #ffffff;
+    color: #07080a;
+
+    font-weight: 600;
+}
+
+.landing-primary-btn:hover {
+    background: #f4f4f5;
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+/* Secondary Button */
+
+.landing-secondary-btn {
+    border: 1px solid var(--border-subtle);
+
+    background: var(--surface-glass);
+    backdrop-filter: blur(12px);
+    color: var(--text-primary);
+}
+
+.landing-secondary-btn:hover {
+    border-color: var(--border-hover);
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
+}
+
+/* Global Weaves Button */
+
+.landing-global-btn {
+    border: 1px solid rgba(52, 211, 153, 0.25);
+
+    background: var(--accent-emerald-soft);
+    backdrop-filter: blur(12px);
+    color: var(--text-primary);
+}
+
+.landing-global-btn:hover {
+    border-color: rgba(52, 211, 153, 0.5);
+    background: rgba(52, 211, 153, 0.12);
+    box-shadow: 0 0 20px rgba(52, 211, 153, 0.15);
+    transform: translateY(-1px);
+}
+
+.landing-global-btn strong {
+    color: var(--accent-emerald);
+}
+
+
+/* =========================================
+   Concept Strip
+========================================= */
+
+.landing-concept {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 24px;
+
+    padding: 16px 20px 32px;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.concept-support {
+    color: var(--accent-emerald);
+}
+
+.concept-topic {
+    color: var(--text-secondary);
+}
+
+.concept-against {
+    color: var(--accent-coral);
+}
+
+.concept-divider {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+
+/* =========================================
+   Gamification Footer
+========================================= */
+
+.landing-footer {
+    width: min(960px, calc(100% - 48px));
+
+    margin: 0 auto;
+
+    padding-bottom: 32px;
+}
+
+.landing-footer-line {
+    width: 100%;
+    height: 1px;
+
+    margin-bottom: 28px;
+
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--border-subtle),
+        transparent
+    );
+}
+
+.landing-gamification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 60px;
+}
+
+.gamification-item {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+
+    transition: all 0.2s ease;
+}
+
+.gamification-item:hover {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: var(--border-subtle);
+}
+
+.gamification-icon {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+
+    background: var(--surface-glass);
+
+    color: var(--text-secondary);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: 0.05em;
+}
+
+.gamification-item div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.gamification-item strong {
+    color: var(--text-primary);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.gamification-item span:not(.gamification-icon) {
+    color: var(--text-muted);
+
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.landing-footer-caption {
+    margin: 28px 0 0;
+
+    text-align: center;
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+    font-weight: 500;
+
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   Responsive Breakpoints
+========================================= */
+
+@media (max-width: 800px) {
+    .landing-navbar {
+        padding: 16px 24px;
+    }
+
+    .landing-hero {
+        padding: 40px 20px;
+    }
+
+    .landing-description {
+        font-size: 15px;
+    }
+
+    .landing-gamification {
+        gap: 20px;
+    }
+
+    .gamification-item {
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 640px) {
+    .landing-navbar {
+        padding: 14px 16px;
+    }
+
+    .landing-logo {
+        font-size: 15px;
+        letter-spacing: 0.25em;
+    }
+
+    .landing-hero-actions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        margin: 32px auto 0;
+    }
+
+    .landing-primary-btn,
+    .landing-secondary-btn,
+    .landing-global-btn {
+        width: 100%;
+    }
+
+    .landing-concept {
+        gap: 12px;
+        font-size: 10px;
+    }
+
+    .landing-gamification {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .gamification-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 10px 4px;
+    }
+
+    .gamification-item div {
+        align-items: center;
+    }
+
+    .gamification-item span:not(.gamification-icon) {
+        display: none;
+    }
+}

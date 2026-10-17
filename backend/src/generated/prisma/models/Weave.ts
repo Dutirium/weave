@@ -20,14 +20,25 @@ export type WeaveModel = runtime.Types.Result.DefaultSelection<Prisma.$WeavePayl
 
 export type AggregateWeave = {
   _count: WeaveCountAggregateOutputType | null
+  _avg: WeaveAvgAggregateOutputType | null
+  _sum: WeaveSumAggregateOutputType | null
   _min: WeaveMinAggregateOutputType | null
   _max: WeaveMaxAggregateOutputType | null
+}
+
+export type WeaveAvgAggregateOutputType = {
+  totalSwitches: number | null
+}
+
+export type WeaveSumAggregateOutputType = {
+  totalSwitches: number | null
 }
 
 export type WeaveMinAggregateOutputType = {
   id: string | null
   creator: string | null
   title: string | null
+  totalSwitches: number | null
   createdAt: Date | null
 }
 
@@ -35,6 +46,7 @@ export type WeaveMaxAggregateOutputType = {
   id: string | null
   creator: string | null
   title: string | null
+  totalSwitches: number | null
   createdAt: Date | null
 }
 
@@ -42,15 +54,25 @@ export type WeaveCountAggregateOutputType = {
   id: number
   creator: number
   title: number
+  totalSwitches: number
   createdAt: number
   _all: number
 }
 
 
+export type WeaveAvgAggregateInputType = {
+  totalSwitches?: true
+}
+
+export type WeaveSumAggregateInputType = {
+  totalSwitches?: true
+}
+
 export type WeaveMinAggregateInputType = {
   id?: true
   creator?: true
   title?: true
+  totalSwitches?: true
   createdAt?: true
 }
 
@@ -58,6 +80,7 @@ export type WeaveMaxAggregateInputType = {
   id?: true
   creator?: true
   title?: true
+  totalSwitches?: true
   createdAt?: true
 }
 
@@ -65,6 +88,7 @@ export type WeaveCountAggregateInputType = {
   id?: true
   creator?: true
   title?: true
+  totalSwitches?: true
   createdAt?: true
   _all?: true
 }
@@ -107,6 +131,18 @@ export type WeaveAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: WeaveAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: WeaveSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: WeaveMinAggregateInputType
@@ -137,6 +173,8 @@ export type WeaveGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   _count?: WeaveCountAggregateInputType | true
+  _avg?: WeaveAvgAggregateInputType
+  _sum?: WeaveSumAggregateInputType
   _min?: WeaveMinAggregateInputType
   _max?: WeaveMaxAggregateInputType
 }
@@ -145,8 +183,11 @@ export type WeaveGroupByOutputType = {
   id: string
   creator: string
   title: string
+  totalSwitches: number
   createdAt: Date
   _count: WeaveCountAggregateOutputType | null
+  _avg: WeaveAvgAggregateOutputType | null
+  _sum: WeaveSumAggregateOutputType | null
   _min: WeaveMinAggregateOutputType | null
   _max: WeaveMaxAggregateOutputType | null
 }
@@ -173,18 +214,22 @@ export type WeaveWhereInput = {
   id?: Prisma.StringFilter<"Weave"> | string
   creator?: Prisma.StringFilter<"Weave"> | string
   title?: Prisma.StringFilter<"Weave"> | string
+  totalSwitches?: Prisma.IntFilter<"Weave"> | number
   createdAt?: Prisma.DateTimeFilter<"Weave"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   messages?: Prisma.MessagesListRelationFilter
+  stances?: Prisma.WeaveStanceListRelationFilter
 }
 
 export type WeaveOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   creator?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  totalSwitches?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   messages?: Prisma.MessagesOrderByRelationAggregateInput
+  stances?: Prisma.WeaveStanceOrderByRelationAggregateInput
 }
 
 export type WeaveWhereUniqueInput = Prisma.AtLeast<{
@@ -194,19 +239,24 @@ export type WeaveWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.WeaveWhereInput | Prisma.WeaveWhereInput[]
   creator?: Prisma.StringFilter<"Weave"> | string
   title?: Prisma.StringFilter<"Weave"> | string
+  totalSwitches?: Prisma.IntFilter<"Weave"> | number
   createdAt?: Prisma.DateTimeFilter<"Weave"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   messages?: Prisma.MessagesListRelationFilter
+  stances?: Prisma.WeaveStanceListRelationFilter
 }, "id">
 
 export type WeaveOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   creator?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  totalSwitches?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.WeaveCountOrderByAggregateInput
+  _avg?: Prisma.WeaveAvgOrderByAggregateInput
   _max?: Prisma.WeaveMaxOrderByAggregateInput
   _min?: Prisma.WeaveMinOrderByAggregateInput
+  _sum?: Prisma.WeaveSumOrderByAggregateInput
 }
 
 export type WeaveScalarWhereWithAggregatesInput = {
@@ -216,51 +266,62 @@ export type WeaveScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Weave"> | string
   creator?: Prisma.StringWithAggregatesFilter<"Weave"> | string
   title?: Prisma.StringWithAggregatesFilter<"Weave"> | string
+  totalSwitches?: Prisma.IntWithAggregatesFilter<"Weave"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Weave"> | Date | string
 }
 
 export type WeaveCreateInput = {
   id?: string
   title: string
+  totalSwitches?: number
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutWeaveInput
   messages?: Prisma.MessagesCreateNestedManyWithoutWeaveInput
+  stances?: Prisma.WeaveStanceCreateNestedManyWithoutWeaveInput
 }
 
 export type WeaveUncheckedCreateInput = {
   id?: string
   creator: string
   title: string
+  totalSwitches?: number
   createdAt?: Date | string
   messages?: Prisma.MessagesUncheckedCreateNestedManyWithoutWeaveInput
+  stances?: Prisma.WeaveStanceUncheckedCreateNestedManyWithoutWeaveInput
 }
 
 export type WeaveUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  totalSwitches?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutWeaveNestedInput
   messages?: Prisma.MessagesUpdateManyWithoutWeaveNestedInput
+  stances?: Prisma.WeaveStanceUpdateManyWithoutWeaveNestedInput
 }
 
 export type WeaveUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   creator?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  totalSwitches?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MessagesUncheckedUpdateManyWithoutWeaveNestedInput
+  stances?: Prisma.WeaveStanceUncheckedUpdateManyWithoutWeaveNestedInput
 }
 
 export type WeaveCreateManyInput = {
   id?: string
   creator: string
   title: string
+  totalSwitches?: number
   createdAt?: Date | string
 }
 
 export type WeaveUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  totalSwitches?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -268,6 +329,7 @@ export type WeaveUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   creator?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  totalSwitches?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -285,13 +347,19 @@ export type WeaveCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   creator?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  totalSwitches?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type WeaveAvgOrderByAggregateInput = {
+  totalSwitches?: Prisma.SortOrder
 }
 
 export type WeaveMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   creator?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  totalSwitches?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -299,7 +367,12 @@ export type WeaveMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   creator?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  totalSwitches?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type WeaveSumOrderByAggregateInput = {
+  totalSwitches?: Prisma.SortOrder
 }
 
 export type WeaveScalarRelationFilter = {
@@ -363,18 +436,36 @@ export type WeaveUpdateOneRequiredWithoutMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.WeaveUpdateToOneWithWhereWithoutMessagesInput, Prisma.WeaveUpdateWithoutMessagesInput>, Prisma.WeaveUncheckedUpdateWithoutMessagesInput>
 }
 
+export type WeaveCreateNestedOneWithoutStancesInput = {
+  create?: Prisma.XOR<Prisma.WeaveCreateWithoutStancesInput, Prisma.WeaveUncheckedCreateWithoutStancesInput>
+  connectOrCreate?: Prisma.WeaveCreateOrConnectWithoutStancesInput
+  connect?: Prisma.WeaveWhereUniqueInput
+}
+
+export type WeaveUpdateOneRequiredWithoutStancesNestedInput = {
+  create?: Prisma.XOR<Prisma.WeaveCreateWithoutStancesInput, Prisma.WeaveUncheckedCreateWithoutStancesInput>
+  connectOrCreate?: Prisma.WeaveCreateOrConnectWithoutStancesInput
+  upsert?: Prisma.WeaveUpsertWithoutStancesInput
+  connect?: Prisma.WeaveWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WeaveUpdateToOneWithWhereWithoutStancesInput, Prisma.WeaveUpdateWithoutStancesInput>, Prisma.WeaveUncheckedUpdateWithoutStancesInput>
+}
+
 export type WeaveCreateWithoutUserInput = {
   id?: string
   title: string
+  totalSwitches?: number
   createdAt?: Date | string
   messages?: Prisma.MessagesCreateNestedManyWithoutWeaveInput
+  stances?: Prisma.WeaveStanceCreateNestedManyWithoutWeaveInput
 }
 
 export type WeaveUncheckedCreateWithoutUserInput = {
   id?: string
   title: string
+  totalSwitches?: number
   createdAt?: Date | string
   messages?: Prisma.MessagesUncheckedCreateNestedManyWithoutWeaveInput
+  stances?: Prisma.WeaveStanceUncheckedCreateNestedManyWithoutWeaveInput
 }
 
 export type WeaveCreateOrConnectWithoutUserInput = {
@@ -410,21 +501,26 @@ export type WeaveScalarWhereInput = {
   id?: Prisma.StringFilter<"Weave"> | string
   creator?: Prisma.StringFilter<"Weave"> | string
   title?: Prisma.StringFilter<"Weave"> | string
+  totalSwitches?: Prisma.IntFilter<"Weave"> | number
   createdAt?: Prisma.DateTimeFilter<"Weave"> | Date | string
 }
 
 export type WeaveCreateWithoutMessagesInput = {
   id?: string
   title: string
+  totalSwitches?: number
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutWeaveInput
+  stances?: Prisma.WeaveStanceCreateNestedManyWithoutWeaveInput
 }
 
 export type WeaveUncheckedCreateWithoutMessagesInput = {
   id?: string
   creator: string
   title: string
+  totalSwitches?: number
   createdAt?: Date | string
+  stances?: Prisma.WeaveStanceUncheckedCreateNestedManyWithoutWeaveInput
 }
 
 export type WeaveCreateOrConnectWithoutMessagesInput = {
@@ -446,40 +542,102 @@ export type WeaveUpdateToOneWithWhereWithoutMessagesInput = {
 export type WeaveUpdateWithoutMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  totalSwitches?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutWeaveNestedInput
+  stances?: Prisma.WeaveStanceUpdateManyWithoutWeaveNestedInput
 }
 
 export type WeaveUncheckedUpdateWithoutMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   creator?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  totalSwitches?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stances?: Prisma.WeaveStanceUncheckedUpdateManyWithoutWeaveNestedInput
+}
+
+export type WeaveCreateWithoutStancesInput = {
+  id?: string
+  title: string
+  totalSwitches?: number
+  createdAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutWeaveInput
+  messages?: Prisma.MessagesCreateNestedManyWithoutWeaveInput
+}
+
+export type WeaveUncheckedCreateWithoutStancesInput = {
+  id?: string
+  creator: string
+  title: string
+  totalSwitches?: number
+  createdAt?: Date | string
+  messages?: Prisma.MessagesUncheckedCreateNestedManyWithoutWeaveInput
+}
+
+export type WeaveCreateOrConnectWithoutStancesInput = {
+  where: Prisma.WeaveWhereUniqueInput
+  create: Prisma.XOR<Prisma.WeaveCreateWithoutStancesInput, Prisma.WeaveUncheckedCreateWithoutStancesInput>
+}
+
+export type WeaveUpsertWithoutStancesInput = {
+  update: Prisma.XOR<Prisma.WeaveUpdateWithoutStancesInput, Prisma.WeaveUncheckedUpdateWithoutStancesInput>
+  create: Prisma.XOR<Prisma.WeaveCreateWithoutStancesInput, Prisma.WeaveUncheckedCreateWithoutStancesInput>
+  where?: Prisma.WeaveWhereInput
+}
+
+export type WeaveUpdateToOneWithWhereWithoutStancesInput = {
+  where?: Prisma.WeaveWhereInput
+  data: Prisma.XOR<Prisma.WeaveUpdateWithoutStancesInput, Prisma.WeaveUncheckedUpdateWithoutStancesInput>
+}
+
+export type WeaveUpdateWithoutStancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  totalSwitches?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutWeaveNestedInput
+  messages?: Prisma.MessagesUpdateManyWithoutWeaveNestedInput
+}
+
+export type WeaveUncheckedUpdateWithoutStancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  creator?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  totalSwitches?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  messages?: Prisma.MessagesUncheckedUpdateManyWithoutWeaveNestedInput
 }
 
 export type WeaveCreateManyUserInput = {
   id?: string
   title: string
+  totalSwitches?: number
   createdAt?: Date | string
 }
 
 export type WeaveUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  totalSwitches?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MessagesUpdateManyWithoutWeaveNestedInput
+  stances?: Prisma.WeaveStanceUpdateManyWithoutWeaveNestedInput
 }
 
 export type WeaveUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  totalSwitches?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MessagesUncheckedUpdateManyWithoutWeaveNestedInput
+  stances?: Prisma.WeaveStanceUncheckedUpdateManyWithoutWeaveNestedInput
 }
 
 export type WeaveUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  totalSwitches?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -490,10 +648,12 @@ export type WeaveUncheckedUpdateManyWithoutUserInput = {
 
 export type WeaveCountOutputType = {
   messages: number
+  stances: number
 }
 
 export type WeaveCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   messages?: boolean | WeaveCountOutputTypeCountMessagesArgs
+  stances?: boolean | WeaveCountOutputTypeCountStancesArgs
 }
 
 /**
@@ -513,14 +673,23 @@ export type WeaveCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Types.
   where?: Prisma.MessagesWhereInput
 }
 
+/**
+ * WeaveCountOutputType without action
+ */
+export type WeaveCountOutputTypeCountStancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WeaveStanceWhereInput
+}
+
 
 export type WeaveSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   creator?: boolean
   title?: boolean
+  totalSwitches?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   messages?: boolean | Prisma.Weave$messagesArgs<ExtArgs>
+  stances?: boolean | Prisma.Weave$stancesArgs<ExtArgs>
   _count?: boolean | Prisma.WeaveCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["weave"]>
 
@@ -528,6 +697,7 @@ export type WeaveSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   creator?: boolean
   title?: boolean
+  totalSwitches?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["weave"]>
@@ -536,6 +706,7 @@ export type WeaveSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   creator?: boolean
   title?: boolean
+  totalSwitches?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["weave"]>
@@ -544,13 +715,15 @@ export type WeaveSelectScalar = {
   id?: boolean
   creator?: boolean
   title?: boolean
+  totalSwitches?: boolean
   createdAt?: boolean
 }
 
-export type WeaveOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "creator" | "title" | "createdAt", ExtArgs["result"]["weave"]>
+export type WeaveOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "creator" | "title" | "totalSwitches" | "createdAt", ExtArgs["result"]["weave"]>
 export type WeaveInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   messages?: boolean | Prisma.Weave$messagesArgs<ExtArgs>
+  stances?: boolean | Prisma.Weave$stancesArgs<ExtArgs>
   _count?: boolean | Prisma.WeaveCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type WeaveIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -565,11 +738,13 @@ export type $WeavePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     messages: Prisma.$MessagesPayload<ExtArgs>[]
+    stances: Prisma.$WeaveStancePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     creator: string
     title: string
+    totalSwitches: number
     createdAt: Date
   }, ExtArgs["result"]["weave"]>
   composites: {}
@@ -967,6 +1142,7 @@ export interface Prisma__WeaveClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   messages<T extends Prisma.Weave$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Weave$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stances<T extends Prisma.Weave$stancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Weave$stancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WeaveStancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -999,6 +1175,7 @@ export interface WeaveFieldRefs {
   readonly id: Prisma.FieldRef<"Weave", 'String'>
   readonly creator: Prisma.FieldRef<"Weave", 'String'>
   readonly title: Prisma.FieldRef<"Weave", 'String'>
+  readonly totalSwitches: Prisma.FieldRef<"Weave", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Weave", 'DateTime'>
 }
     
@@ -1422,6 +1599,30 @@ export type Weave$messagesArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.MessagesScalarFieldEnum | Prisma.MessagesScalarFieldEnum[]
+}
+
+/**
+ * Weave.stances
+ */
+export type Weave$stancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WeaveStance
+   */
+  select?: Prisma.WeaveStanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WeaveStance
+   */
+  omit?: Prisma.WeaveStanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WeaveStanceInclude<ExtArgs> | null
+  where?: Prisma.WeaveStanceWhereInput
+  orderBy?: Prisma.WeaveStanceOrderByWithRelationInput | Prisma.WeaveStanceOrderByWithRelationInput[]
+  cursor?: Prisma.WeaveStanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WeaveStanceScalarFieldEnum | Prisma.WeaveStanceScalarFieldEnum[]
 }
 
 /**

@@ -9,6 +9,15 @@
 * 🟢 You can import this file directly.
 */
 
+export const Stance = {
+  SUPPORT: 'SUPPORT',
+  CHALLENGE: 'CHALLENGE',
+  NEUTRAL: 'NEUTRAL'
+} as const
+
+export type Stance = (typeof Stance)[keyof typeof Stance]
+
+
 export const ArgumentRelation = {
   REPLY: 'REPLY',
   SUPPORT: 'SUPPORT',

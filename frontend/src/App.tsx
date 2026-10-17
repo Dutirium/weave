@@ -6,6 +6,7 @@ import ProtectedRoute from './middleware/ProtectedRoute';
 import { CheckCredentials }  from "./middleware/CheckCredentials";
 import Weave from './pages/Weave';
 import Landing from './pages/Landing';
+import Global from "./pages/Global";
 
 function App(){
 
@@ -31,10 +32,12 @@ function App(){
       <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/weaves/:id" element={<Weave />} />
+          
       </Route>
 
       {/* Any other routes */}
       <Route path="/" element={<Landing />} />
+      <Route path="/global" element={<Global />} />
     </Routes>
  
     </main>

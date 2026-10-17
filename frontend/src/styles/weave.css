@@ -1,0 +1,734 @@
+/* ========================================
+   WEAVE THEME (PREMIUM DARK UI)
+======================================== */
+.weave-page {
+    /* Theme variables */
+    --color-background: #08090d;
+    --color-surface: rgba(17, 21, 30, 0.75);
+    --color-surface-raised: rgba(24, 30, 44, 0.85);
+
+    --color-text: #f8fafc;
+    --color-text-muted: #8e9bb0;
+
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-border-hover: rgba(255, 255, 255, 0.18);
+
+    /* Support - RIGHT (Green) */
+    --color-support: #10b981;
+    --color-support-soft: rgba(16, 185, 129, 0.08);
+    --color-support-border: rgba(16, 185, 129, 0.3);
+
+    /* Against - LEFT (Red) */
+    --color-against: #f43f5e;
+    --color-against-soft: rgba(244, 63, 94, 0.08);
+    --color-against-border: rgba(244, 63, 94, 0.3);
+
+    /* Neutral - CENTER (Gold) */
+    --color-neutral: #eab308;
+    --color-neutral-soft: rgba(234, 179, 8, 0.08);
+    --color-neutral-border: rgba(234, 179, 8, 0.3);
+
+    --color-accent: #6366f1;
+    --color-accent-hover: #818cf8;
+
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+
+    min-height: 100vh;
+    padding: 40px 24px 80px;
+
+    background-color: var(--color-background);
+    background-image: 
+        radial-gradient(ellipse 70% 40% at 50% -10%, rgba(99, 102, 241, 0.12), transparent),
+        radial-gradient(ellipse 50% 30% at 50% 100%, rgba(16, 185, 129, 0.05), transparent);
+
+    color: var(--color-text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+/* ==========================================================================
+   Eye-Friendly Popups & Overlays Only
+   ========================================================================== */
+
+/* 1. Top Fixed Banner for Switch Mode */
+.switch-mode-overlay {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  
+  /* Soft Dark Theme (No Eye Strain) */
+  background: #1e2532;
+  border: 1px solid #6366f1;
+  color: #e2e8f0;
+  
+  padding: 12px 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  animation: fadeInDown 0.25s ease-out;
+  
+  width: 90%;
+  max-width: 450px;
+}
+
+.switch-mode-overlay h2 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #cbd5e1;
+  margin-bottom: 4px;
+}
+
+.switch-mode-overlay p {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #818cf8; /* Soft Indigo */
+}
+
+/* 2. Generic Top-Right Notification Toast */
+.popup-overlay {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 10000;
+  animation: slideInRight 0.25s ease-out;
+}
+
+.popup-box {
+  background: #1e2532;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+  border-left: 4px solid #818cf8;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -15px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+
+  /* for selection of messages  */
+.selectable-message {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.selectable-message:hover {
+    transform: scale(1.01);
+}
+
+.selected-message {
+    outline: 2px solid white;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+}
+
+/* ========================================
+   PAGE HEADER
+======================================== */
+
+.weave-header {
+    max-width: 1040px;
+    margin: 0 auto 40px;
+}
+
+.weave-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.weave-logo {
+    display: grid;
+    place-items: center;
+
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+
+    background: var(--color-surface);
+    backdrop-filter: blur(12px);
+    color: var(--color-accent-hover);
+
+    font-size: 1.2rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.weave-brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.weave-brand-text strong {
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
+    color: var(--color-text);
+}
+
+.weave-brand-text span {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
+
+.weave-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+    padding: 4px 10px;
+
+    border-radius: 20px;
+    background: var(--color-support-soft);
+    border: 1px solid var(--color-support-border);
+
+    color: var(--color-support);
+
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.weave-type {
+    margin: 0 0 8px;
+
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.weave-title {
+    margin: 0 0 20px;
+
+    color: #ffffff;
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+}
+
+.weave-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+
+/* ========================================
+   DISCUSSION PANEL
+======================================== */
+
+.discussion-panel {
+    max-width: 1040px;
+    margin: 0 auto;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    background: var(--color-surface);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    box-shadow: 
+        0 16px 40px -10px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+
+    overflow: hidden;
+}
+
+.discussion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    padding: 24px 30px;
+
+    border-bottom: 1px solid var(--color-border);
+}
+
+.discussion-header h2 {
+    margin: 0 0 4px;
+
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.discussion-header p {
+    margin: 0;
+
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.discussion-count {
+    display: grid;
+    place-items: center;
+
+    min-width: 36px;
+    height: 36px;
+    padding: 0 12px;
+
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.03);
+
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.discussion-body {
+    padding: 30px;
+}
+
+
+/* ========================================
+   EMPTY DISCUSSION
+======================================== */
+
+.empty-discussion {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.empty-discussion p {
+    margin: 6px 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.empty-discussion p:first-child {
+    color: var(--color-text);
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+
+/* ========================================
+   MESSAGE LIST
+======================================== */
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/* ========================================
+   MESSAGE CARD
+======================================== */
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    width: fit-content;
+    max-width: 76%;
+
+    padding: 18px 20px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background: var(--color-surface-raised);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.message:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-border-hover);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Support = RIGHT (Green) */
+
+.message-for {
+    align-self: flex-end;
+
+    border-left: 1px solid var(--color-support-border);
+    border-right: 3px solid var(--color-support);
+    border-color: var(--color-support-border);
+
+    background: var(--color-support-soft);
+}
+
+
+/* Challenge/Against = LEFT (Red) */
+
+.message-against {
+    align-self: flex-start;
+
+    border-right: 1px solid var(--color-against-border);
+    border-left: 3px solid var(--color-against);
+    border-color: var(--color-against-border);
+
+    background: var(--color-against-soft);
+}
+
+
+/* Neutral = CENTER (Gold) */
+
+.message-neutral {
+    align-self: center;
+
+    border-left: 3px solid var(--color-neutral);
+    border-color: var(--color-neutral-border);
+
+    background: var(--color-neutral-soft);
+}
+
+
+/* ========================================
+   MESSAGE AVATAR
+======================================== */
+
+.message-avatar {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.message-for .message-avatar {
+    background: var(--color-support);
+    color: #042f1d;
+}
+
+.message-against .message-avatar {
+    background: var(--color-against);
+    color: #31040a;
+}
+
+.message-neutral .message-avatar {
+    background: var(--color-neutral);
+    color: #2b2002;
+}
+
+
+/* ========================================
+   MESSAGE CONTENT
+======================================== */
+
+.message-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.message-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.message-author strong {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.message-author span {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
+
+.message-relation {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-top: 6px;
+
+    color: var(--color-text-muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+}
+
+.message-text {
+    margin: 12px 0;
+
+    color: var(--color-text);
+    font-size: 0.92rem;
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
+}
+
+.message-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
+
+.message-footer button {
+    border: 0;
+    padding: 0;
+
+    background: transparent;
+    color: var(--color-accent-hover);
+
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+
+    transition: opacity 0.15s ease;
+}
+
+.message-footer button:hover {
+    text-decoration: underline;
+    opacity: 0.85;
+}
+
+
+/* ========================================
+   REPLY PANEL
+======================================== */
+
+.reply-panel {
+    margin-top: 24px;
+    padding: 20px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.reply-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.reply-header p {
+    margin: 0 0 2px;
+
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
+
+.reply-header strong {
+    font-size: 0.88rem;
+    color: var(--color-text);
+}
+
+.reply-header button {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+
+    padding: 6px 12px;
+
+    background: transparent;
+    color: var(--color-text-muted);
+
+    font-size: 0.78rem;
+    cursor: pointer;
+
+    transition: all 0.15s ease;
+}
+
+.reply-header button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text);
+}
+
+.reply-preview {
+    margin: 14px 0;
+
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    line-height: 1.5;
+
+    border-left: 2px solid var(--color-accent);
+    padding-left: 12px;
+}
+
+.reply-relation {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    color: var(--color-text-muted);
+    font-size: 0.78rem;
+}
+
+.reply-relation select {
+    width: 100%;
+    padding: 10px 14px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    font: inherit;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+
+/* ========================================
+   MESSAGE FORM
+======================================== */
+
+.message-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    margin-top: 28px;
+    padding-top: 24px;
+
+    border-top: 1px solid var(--color-border);
+}
+
+.message-input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 14px 18px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--color-text);
+
+    font: inherit;
+    font-size: 0.9rem;
+    outline: none;
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.message-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.message-input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.message-form-hint {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
+
+.message-submit {
+    align-self: flex-end;
+
+    padding: 10px 22px;
+
+    border: 0;
+    border-radius: var(--radius-sm);
+
+    background: #ffffff;
+    color: #08090d;
+
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.message-submit:hover:not(:disabled) {
+    background: #e4e4e7;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+.message-submit:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 600px) {
+    .weave-page {
+        padding: 24px 14px 40px;
+    }
+
+    .discussion-header,
+    .discussion-body {
+        padding: 20px 16px;
+    }
+
+    .message {
+        max-width: 90%;
+        padding: 14px 16px;
+    }
+
+    .message-submit {
+        width: 100%;
+    }
+}

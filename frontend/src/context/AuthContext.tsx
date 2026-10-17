@@ -11,6 +11,7 @@ interface User {
     email: string;
     createdAt?: string;
     sessionId?: string;
+    credibility: number,
 }
 
 interface AuthContextType {
@@ -32,7 +33,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const refreshUser = async () => {
         try {
             const response = await fetch(
-                `/api/auth/me`,
+                `${import.meta.env.VITE_API_URL}/api/auth/me`,
+                //`/api/auth/me`,
                 {
                     method: "GET",
                     credentials: "include",
@@ -43,8 +45,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
                 setUser(null);
                 return;
             }
-
+            
             const data = await response.json();
+            
+            //console.log("Authenticate.ts response data",data);
 
             setUser(data.user);
 
@@ -66,7 +70,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const logout = async () => {
         try {
             await fetch(
-                `/api/auth/logout`,
+                `${import.meta.env.VITE_API_URL}/api/auth/logout`,
+                //`/api/auth/logout`,
                 {
                     method: "DELETE",
                     credentials: "include",
