@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import SpiderWebBackground from "../components/SpiderWebBackground";
 import "../styles/landing.css";
 
 const Landing = () => {
@@ -8,7 +7,7 @@ const Landing = () => {
     return (
         <div className="landing-page">
 
-            <SpiderWebBackground />
+           
 
             <div className="landing-content">
 
